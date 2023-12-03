@@ -24,7 +24,15 @@ class Dimensions{
   static double height15(context){
     return screenHeight(context)/55.13;
   }
-
+  static double height20(context){
+    return screenHeight(context)/41.35;
+  }
+  static double height30(context){
+    return screenHeight(context)/27.56;
+  }
+  static double height50(context){
+    return screenHeight(context)/16.54;
+  }
   // Widht
   static double widht5(context){
     return screenWidht(context)/78.55;
@@ -42,8 +50,14 @@ class Dimensions{
   static double font10(context){
     return screenFont(context) * 8.696;
   }
-  static double font15(context){
-    return screenFont(context) * 13.043;
+  static double font16(context){
+    return screenFont(context) * 13.913;
+  }
+  static double font20(context){
+    return screenFont(context) * 17.391;
+  }
+  static double font28(context){
+    return screenFont(context) * 24.347;
   }
   // Radius
 }
