@@ -67,6 +67,9 @@ class Dimensions{
   static double font10(context){
     return screenFont(context) * 8.696;
   }
+  static double font12(context){
+    return screenFont(context) * 10.435;
+  }
   static double font16(context){
     return screenFont(context) * 13.913;
   }

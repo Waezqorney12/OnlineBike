@@ -1,4 +1,6 @@
+import 'package:bike_online_application/common/component/Button_Google.dart';
 import 'package:bike_online_application/common/component/Button_Login_Register.dart';
+import 'package:bike_online_application/common/component/Diveder.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
@@ -47,7 +49,9 @@ class _RegisterPageState extends State<RegisterPage> {
             formPassword(context, password),
             formPasswords(context, password),
             SizedBox(height: Dimensions.height50(context)),
-            ButtonFormat(text: "Register", buttonPressed: () {})
+            ButtonFormat(text: "Register", buttonPressed: () {}),
+            const DivederOr(),
+            GoogleButton(buttonPressed: (){})
           ],
         ),
       ),
