@@ -14,6 +14,10 @@ class Dimensions{
   static double screenFont(context){
     return MediaQuery.of(context).textScaleFactor;
   }
+
+
+
+
   // Height
   static double height5(BuildContext context){
     return screenHeight(context)/165.38;
@@ -30,9 +34,16 @@ class Dimensions{
   static double height30(context){
     return screenHeight(context)/27.56;
   }
+  static double height45(context){
+    return screenHeight(context)/18.38;
+  }
   static double height50(context){
     return screenHeight(context)/16.54;
   }
+  
+
+
+
   // Widht
   static double widht5(context){
     return screenWidht(context)/78.55;
@@ -43,6 +54,12 @@ class Dimensions{
   static double widht15(context){
     return screenWidht(context)/26.18;
   }
+  static double widht360(context){
+    return screenWidht(context)/1.1;
+  }
+
+
+
   // Font Size
   static double font5(context){
     return screenFont(context) * 4.38;
@@ -59,5 +76,8 @@ class Dimensions{
   static double font28(context){
     return screenFont(context) * 24.347;
   }
+
+  
   // Radius
+
 }
