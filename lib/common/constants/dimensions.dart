@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+    // final logger = Logger();
+    // logger.d("Height: ${MediaQuery.of(context).size.height}");
+    // logger.d("Widht: ${MediaQuery.of(context).size.width}");
+    // logger.d("Font Size: ${MediaQuery.of(context).textScaleFactor}");
+
+    // My Device
+    // Height: 826.9090909090909
+    // Widht: 392.72727272727275
+    // font: 1.15
+
+    // Your Device
+
 class Dimensions{
 
   // Current Height
@@ -40,7 +52,15 @@ class Dimensions{
   static double height50(context){
     return screenHeight(context)/16.54;
   }
-  
+  static double height100(context){
+    return screenHeight(context)/8.27;
+  }
+  static double height150(context){
+    return screenHeight(context)/5.51;
+  }
+  static double height200(context){
+    return screenHeight(context)/4.13;
+  }
 
 
 
@@ -53,6 +73,12 @@ class Dimensions{
   }
   static double widht15(context){
     return screenWidht(context)/26.18;
+  }
+  static double widht20(context){
+    return screenWidht(context)/19.64;
+  }
+  static double widht100(context){
+    return screenWidht(context)/3.93;
   }
   static double widht360(context){
     return screenWidht(context)/1.1;
@@ -69,6 +95,9 @@ class Dimensions{
   }
   static double font12(context){
     return screenFont(context) * 10.435;
+  }
+  static double font14(context){
+    return screenFont(context) * 12.17;
   }
   static double font16(context){
     return screenFont(context) * 13.913;

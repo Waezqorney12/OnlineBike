@@ -1,3 +1,5 @@
+import 'package:bike_online_application/common/component/Border_Form.dart';
+import 'package:bike_online_application/common/component/Button_Font.dart';
 import 'package:bike_online_application/common/component/Button_Google.dart';
 import 'package:bike_online_application/common/component/Button_Login_Register.dart';
 import 'package:bike_online_application/common/component/Diveder.dart';
@@ -6,7 +8,6 @@ import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -20,18 +21,12 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
-
-    // final logger = Logger();
-    // logger.d("Height: ${MediaQuery.of(context).size.height}");
-    // logger.d("Widht: ${MediaQuery.of(context).size.width}");
-    // logger.d("Font Size: ${MediaQuery.of(context).textScaleFactor}");
-
     return Scaffold(
       backgroundColor: ColorClass.background,
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.height15(context),
-            vertical: Dimensions.widht15(context)),
+            horizontal: Dimensions.widht15(context),
+            vertical: Dimensions.height15(context)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -51,7 +46,11 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(height: Dimensions.height50(context)),
             ButtonFormat(text: "Register", buttonPressed: () {}),
             const DivederOr(),
-            GoogleButton(buttonPressed: (){})
+            GoogleButton(buttonPressed: () {}),
+            ButtonFont(
+                textOne: "Already have account?",
+                textTwo: "Sign In",
+                fontPressed: () {})
           ],
         ),
       ),
@@ -63,9 +62,8 @@ class _RegisterPageState extends State<RegisterPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         jarak(context, "Email"),
-        form(
-          context,
-          TextFormField(
+        BorderForm(
+          widget: TextFormField(
             controller: control,
             style: GoogleFonts.poppins(
                 color: ColorClass.white, fontSize: Dimensions.font16(context)),
@@ -88,9 +86,8 @@ class _RegisterPageState extends State<RegisterPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         jarak(context, "Password"),
-        form(
-          context,
-          TextFormField(
+        BorderForm(
+          widget: TextFormField(
             obscureText: true,
             controller: control,
             style: GoogleFonts.poppins(
@@ -114,9 +111,8 @@ class _RegisterPageState extends State<RegisterPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         jarak(context, "Confirm Password"),
-        form(
-          context,
-          TextFormField(
+        BorderForm(
+          widget: TextFormField(
             obscureText: true,
             controller: control,
             style: GoogleFonts.poppins(
@@ -131,17 +127,6 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         )
       ],
-    );
-  }
-
-  Widget form(BuildContext context, Widget widget) {
-    return Container(
-      height: Dimensions.height50(context),
-      width: Dimensions.widht360(context),
-      decoration: BoxDecoration(
-          border: Border.all(color: ColorClass.white),
-          borderRadius: BorderRadius.circular(10)),
-      child: widget,
     );
   }
 

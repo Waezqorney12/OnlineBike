@@ -29,10 +29,12 @@ class GoogleButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: Dimensions.widht15(context)),
-              child: Image.asset(ImageClass.google),
+            Align(
+              child: Padding(
+                padding:
+                    EdgeInsets.only(right: Dimensions.widht20(context)),
+                child: Image.asset(ImageClass.google),
+              ),
             ),
             PoppinText(
               text: "Continue with Google",

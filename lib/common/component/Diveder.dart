@@ -10,7 +10,7 @@ class DivederOr extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
               padding:
-                  EdgeInsets.symmetric(vertical: Dimensions.height30(context)),
+                  EdgeInsets.symmetric(vertical: Dimensions.height20(context)),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
