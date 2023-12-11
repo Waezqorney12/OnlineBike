@@ -58,8 +58,17 @@ class Dimensions{
   static double height150(context){
     return screenHeight(context)/5.51;
   }
+  static double height160(context){
+    return screenHeight(context)/5.17;
+  }
+  static double height170(context){
+    return screenHeight(context)/4.86;
+  }
   static double height200(context){
     return screenHeight(context)/4.13;
+  }
+  static double height250(context){
+    return screenHeight(context)/3.31;
   }
 
 

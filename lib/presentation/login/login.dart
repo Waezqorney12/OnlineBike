@@ -1,3 +1,4 @@
+import 'package:bike_online_application/common/component/Font/MontserratText.dart';
 import 'package:bike_online_application/common/component/Border_Form.dart';
 import 'package:bike_online_application/common/component/Button_Font.dart';
 import 'package:bike_online_application/common/component/Button_Google.dart';
@@ -7,6 +8,9 @@ import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/common/constants/image.dart';
+import 'package:bike_online_application/data/firebase/Login/Google/login_auth_google.dart';
+import 'package:bike_online_application/data/firebase/Login/Normal/login_auth.dart';
+import 'package:bike_online_application/presentation/register/register.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,50 +27,80 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorClass.background,
-        body:  Column(
-            children: [
-              stack(context),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimensions.widht15(context)),
-                child: Column(
-                  children: [
-                    formEmail(context, emailController),
-                formPassword(context, passwordController),
-                fontForgotPassword(context),
-                ButtonFormat(text: "Login", buttonPressed: (){}),
-                const DivederOr(),
-                GoogleButton(buttonPressed: (){}),
-                ButtonFont(textOne: "Already have account?", textTwo: "Sign Up", fontPressed: (){})
-                  ],
-                ),
-              )
-              
-            ],
-          ),
-        );
+      backgroundColor: ColorClass.background,
+      body: SingleChildScrollView(
+        controller: ScrollController(),
+        child: Column(
+          children: [
+            stack(context),
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: Dimensions.widht15(context)),
+              child: Column(
+                children: [
+                  formEmail(context, emailController),
+                  formPassword(context, passwordController),
+                  fontForgotPassword(context),
+                  ButtonFormat(
+                      text: "Login",
+                      buttonPressed: () async {
+                        await LoginAuth().loginAuth(
+                            emailController.text.trim(),
+                            passwordController.text.trim(),);
+                      }),
+                  const DivederOr(),
+                  GoogleButton(buttonPressed: () async {
+                    await GoogleOtentikasi().firebaseGoogleSignIn();
+                  }),
+                  ButtonFont(
+                      textOne: "Already have account?",
+                      textTwo: "Sign Up",
+                      fontPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterPage(),
+                            ));
+                      })
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Align fontForgotPassword(BuildContext context) {
     return Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: (){},
-              child: Padding(
-                padding: EdgeInsets.only(top: Dimensions.height15(context),right: Dimensions.widht10(context),bottom: Dimensions.height30(context)),
-                child: ShaderMask(shaderCallback: (bounds) {
-                  return LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: <Color>[
-                      ColorClass.lightBlue,
-                      ColorClass.darkBlue
-                    ]).createShader(bounds);
-                },
-                child: PoppinText(text: "Forgot Password?", fontSize: Dimensions.font14(context), weight: FontWeight.normal, isBlack: false,),),
-              ),
+      alignment: Alignment.centerRight,
+      child: GestureDetector(
+        onTap: () {},
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: Dimensions.height15(context),
+              right: Dimensions.widht10(context),
+              bottom: Dimensions.height30(context)),
+          child: ShaderMask(
+            shaderCallback: (bounds) {
+              return LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: <Color>[
+                    ColorClass.lightBlue,
+                    ColorClass.darkBlue
+                  ]).createShader(bounds);
+            },
+            child: PoppinText(
+              text: "Forgot Password?",
+              fontSize: Dimensions.font14(context),
+              weight: FontWeight.normal,
+              isBlack: false,
             ),
-          );
+          ),
+        ),
+      ),
+    );
   }
 
   Stack stack(BuildContext context) {
@@ -75,19 +109,39 @@ class _LoginPageState extends State<LoginPage> {
         ClipPath(
           clipper: MyCustomClipper(),
           child: SizedBox(
-            height: 250,
-            width: 400,
+            height: Dimensions.height250(context),
+            width: MediaQuery.of(context).size.width,
             child: Image.asset(ImageClass.imageLogin, fit: BoxFit.cover),
           ),
         ),
         Center(
           child: Padding(
-            padding: EdgeInsets.only(top: Dimensions.height150(context) + 20),
+            padding: EdgeInsets.only(top: Dimensions.height160(context)),
             child: Container(
               height: Dimensions.height100(context),
               width: Dimensions.widht100(context),
               decoration: BoxDecoration(
                   color: ColorClass.white, shape: BoxShape.circle),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Montserrat(
+                      text: "Rock",
+                      color: ColorClass.darkGreen,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                  Montserrat(
+                      text: "And",
+                      color: ColorClass.darkGreen,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500),
+                  Montserrat(
+                      text: "Bold",
+                      color: ColorClass.darkGreen,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ],
+              ),
             ),
           ),
         )

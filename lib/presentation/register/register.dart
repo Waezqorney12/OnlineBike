@@ -6,6 +6,8 @@ import 'package:bike_online_application/common/component/Diveder.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
+import 'package:bike_online_application/data/firebase/Register/RegisterAuth.dart';
+import 'package:bike_online_application/presentation/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,41 +19,68 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  @override
-  Widget build(BuildContext context) {
+  
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
+    TextEditingController confirm = TextEditingController();
+
+@override
+  void dispose() {
+    email;
+    password;
+    confirm;
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorClass.background,
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.widht15(context),
-            vertical: Dimensions.height15(context)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(vertical: Dimensions.height30(context)),
-              child: PoppinText(
-                text: "Get your free account",
-                fontSize: Dimensions.font28(context),
-                weight: FontWeight.bold,
-                isBlack: false,
+      body: SingleChildScrollView(
+        controller: ScrollController(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Dimensions.widht15(context),
+              vertical: Dimensions.height15(context)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: Dimensions.height30(context)),
+                child: PoppinText(
+                  text: "Get your free account",
+                  fontSize: Dimensions.font28(context),
+                  weight: FontWeight.bold,
+                  isBlack: false,
+                ),
               ),
-            ),
-            formEmail(context, email),
-            formPassword(context, password),
-            formPasswords(context, password),
-            SizedBox(height: Dimensions.height50(context)),
-            ButtonFormat(text: "Register", buttonPressed: () {}),
-            const DivederOr(),
-            GoogleButton(buttonPressed: () {}),
-            ButtonFont(
-                textOne: "Already have account?",
-                textTwo: "Sign In",
-                fontPressed: () {})
-          ],
+              formEmail(context, email),
+              formPassword(context, password),
+              formPasswords(context, confirm),
+              SizedBox(height: Dimensions.height50(context)),
+              ButtonFormat(
+                  text: "Register",
+                  buttonPressed: () async {
+                    await RegisterAuth().signUp(
+                      email.text.trim(),
+                      password.text.trim(), 
+                      confirm.text.trim(),
+                      context);
+                  }),
+              const DivederOr(),
+              GoogleButton(buttonPressed: () {}),
+              ButtonFont(
+                  textOne: "Already have account?",
+                  textTwo: "Sign In",
+                  fontPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ));
+                  })
+            ],
+          ),
         ),
       ),
     );
