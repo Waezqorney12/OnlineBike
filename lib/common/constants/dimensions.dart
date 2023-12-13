@@ -27,10 +27,14 @@ class Dimensions{
     return MediaQuery.of(context).textScaleFactor;
   }
 
-
-
-
+  // Minus Height
+  static double minHeight50(BuildContext context){
+    return screenHeight(context)/-16.54;
+  }
   // Height
+  static double height0(BuildContext context){
+    return screenHeight(context) * 0;
+  }
   static double height5(BuildContext context){
     return screenHeight(context)/165.38;
   }
@@ -74,6 +78,9 @@ class Dimensions{
 
 
   // Widht
+  static double widht0(context){
+    return screenWidht(context) * 0;
+  }
   static double widht5(context){
     return screenWidht(context)/78.55;
   }
@@ -118,7 +125,7 @@ class Dimensions{
     return screenFont(context) * 24.347;
   }
 
-  
+ 
   // Radius
 
 }

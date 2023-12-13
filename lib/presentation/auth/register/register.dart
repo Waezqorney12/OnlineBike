@@ -3,13 +3,16 @@ import 'package:bike_online_application/common/component/Button_Font.dart';
 import 'package:bike_online_application/common/component/Button_Google.dart';
 import 'package:bike_online_application/common/component/Button_Login_Register.dart';
 import 'package:bike_online_application/common/component/Diveder.dart';
+import 'package:bike_online_application/common/component/Font/MontserratText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
-import 'package:bike_online_application/data/firebase/Register/RegisterAuth.dart';
+import 'package:bike_online_application/data/firebase/Register/Google/RegisterGoogle.dart';
+import 'package:bike_online_application/data/firebase/Register/Normal/RegisterAuth.dart';
 import 'package:bike_online_application/presentation/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -19,6 +22,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  Logger logger = Logger();
+  
   
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
@@ -33,6 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
   @override
   Widget build(BuildContext context) {
+    logger.d(MediaQuery.of(context).size);
     return Scaffold(
       backgroundColor: ColorClass.background,
       body: SingleChildScrollView(
@@ -44,20 +50,35 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: Dimensions.height30(context)),
+                padding: EdgeInsets.only(
+                    top: Dimensions.height30(context)),
                 child: PoppinText(
-                  text: "Get your free account",
+                  text: "Get your account",
                   fontSize: Dimensions.font28(context),
                   weight: FontWeight.bold,
                   isBlack: false,
                 ),
               ),
+
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: Dimensions.height30(context)),
+                child: Montserrat(
+                  color: ColorClass.white.withOpacity(.6),
+                  text: "Create yout account for free without tax",
+                  fontSize: Dimensions.font14(context),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              
               formEmail(context, email),
               formPassword(context, password),
               formPasswords(context, confirm),
+
               SizedBox(height: Dimensions.height50(context)),
+
               ButtonFormat(
                   text: "Register",
                   buttonPressed: () async {
@@ -68,7 +89,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       context);
                   }),
               const DivederOr(),
-              GoogleButton(buttonPressed: () {}),
+
+              GoogleButton(buttonPressed: () async{
+                await GoogleSignUp().signUpWithGoogle(context);
+              }),
+
               ButtonFont(
                   textOne: "Already have account?",
                   textTwo: "Sign In",

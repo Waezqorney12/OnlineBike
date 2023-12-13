@@ -6,13 +6,25 @@ class Montserrat extends StatelessWidget {
   final Color color;
   final double fontSize;
   final FontWeight fontWeight;
-  const Montserrat({super.key, required this.text, required this.color, required this.fontSize, required this.fontWeight});
+  final TextAlign? textAlign;
+  const Montserrat(
+      {super.key,
+      required this.text,
+      required this.color,
+      required this.fontSize,
+      required this.fontWeight,
+      this.textAlign});
 
   @override
   Widget build(BuildContext context) {
     return Text(
+      
       text,
-      style: GoogleFonts.montserrat(color: color, fontSize: fontSize/MediaQuery.textScaleFactorOf(context), fontWeight: fontWeight),
+      textAlign: textAlign,
+      style: GoogleFonts.montserrat(
+          color: color,
+          fontSize: fontSize / MediaQuery.textScaleFactorOf(context),
+          fontWeight: fontWeight,),
     );
   }
 }

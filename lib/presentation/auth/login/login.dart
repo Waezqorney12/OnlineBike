@@ -8,8 +8,7 @@ import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/common/constants/image.dart';
-import 'package:bike_online_application/data/firebase/Login/Google/login_auth_google.dart';
-import 'package:bike_online_application/data/firebase/Login/Normal/login_auth.dart';
+import 'package:bike_online_application/data/firebase/Login/Normal/LoginAuth.dart';
 import 'package:bike_online_application/presentation/register/register.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                       }),
                   const DivederOr(),
                   GoogleButton(buttonPressed: () async {
-                    await GoogleOtentikasi().firebaseGoogleSignIn();
+
                   }),
                   ButtonFont(
                       textOne: "Already have account?",

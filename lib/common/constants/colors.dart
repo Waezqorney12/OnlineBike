@@ -10,4 +10,5 @@ class ColorClass{
   static Color lightBlue = const Color(0xFF37B6E9);
   static Color darkBlue = const Color(0xFF4B4CED);
   static Color darkGreen = const Color(0xFF2F7591);
+  static Color yellowCustom = const Color.fromARGB(255, 238, 220, 60);
 }
