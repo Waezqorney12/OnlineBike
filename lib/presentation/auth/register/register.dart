@@ -7,9 +7,8 @@ import 'package:bike_online_application/common/component/Font/MontserratText.dar
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
-import 'package:bike_online_application/data/firebase/Register/Google/RegisterGoogle.dart';
-import 'package:bike_online_application/data/firebase/Register/Normal/RegisterAuth.dart';
-import 'package:bike_online_application/presentation/login/login.dart';
+import 'package:bike_online_application/presentation/auth/login/login.dart';
+import 'package:bike_online_application/repository/firebase/auth/Register/RegisterAuth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
@@ -23,19 +22,20 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   Logger logger = Logger();
-  
-  
-    TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
-    TextEditingController confirm = TextEditingController();
 
-@override
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirm = TextEditingController();
+
+
+  @override
   void dispose() {
     email;
     password;
     confirm;
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     logger.d(MediaQuery.of(context).size);
@@ -50,10 +50,8 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Padding(
-                padding: EdgeInsets.only(
-                    top: Dimensions.height30(context)),
+                padding: EdgeInsets.only(top: Dimensions.height30(context)),
                 child: PoppinText(
                   text: "Get your account",
                   fontSize: Dimensions.font28(context),
@@ -61,10 +59,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   isBlack: false,
                 ),
               ),
-
               Padding(
-                padding: EdgeInsets.only(
-                    bottom: Dimensions.height30(context)),
+                padding: EdgeInsets.only(bottom: Dimensions.height30(context)),
                 child: Montserrat(
                   color: ColorClass.white.withOpacity(.6),
                   text: "Create yout account for free without tax",
@@ -72,28 +68,23 @@ class _RegisterPageState extends State<RegisterPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              
               formEmail(context, email),
               formPassword(context, password),
               formPasswords(context, confirm),
-
               SizedBox(height: Dimensions.height50(context)),
-
               ButtonFormat(
                   text: "Register",
                   buttonPressed: () async {
                     await RegisterAuth().signUp(
-                      email.text.trim(),
-                      password.text.trim(), 
-                      confirm.text.trim(),
-                      context);
+                        emailUser: email.text.trim(),
+                        password: password.text.trim(),
+                        confirm: confirm.text.trim(),
+                        context: context);
                   }),
               const DivederOr(),
-
-              GoogleButton(buttonPressed: () async{
-                await GoogleSignUp().signUpWithGoogle(context);
+              GoogleButton(buttonPressed: () async {
+                await RegisterAuth().signUpWithGoogle(context);
               }),
-
               ButtonFont(
                   textOne: "Already have account?",
                   textTwo: "Sign In",

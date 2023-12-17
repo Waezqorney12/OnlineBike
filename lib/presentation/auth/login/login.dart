@@ -8,8 +8,8 @@ import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/common/constants/image.dart';
-import 'package:bike_online_application/data/firebase/Login/Normal/LoginAuth.dart';
-import 'package:bike_online_application/presentation/register/register.dart';
+import 'package:bike_online_application/presentation/auth/register/register.dart';
+import 'package:bike_online_application/repository/firebase/auth/Login/LoginAuth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,6 +23,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(const AssetImage(ImageClass.imageLogin), context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,11 +52,12 @@ class _LoginPageState extends State<LoginPage> {
                       buttonPressed: () async {
                         await LoginAuth().loginAuth(
                             emailController.text.trim(),
-                            passwordController.text.trim(),);
+                            passwordController.text.trim(),
+                            context);
                       }),
                   const DivederOr(),
                   GoogleButton(buttonPressed: () async {
-
+                    await LoginAuth().firebaseGoogleSignIn(context);
                   }),
                   ButtonFont(
                       textOne: "Already have account?",
@@ -105,12 +113,15 @@ class _LoginPageState extends State<LoginPage> {
   Stack stack(BuildContext context) {
     return Stack(
       children: [
-        ClipPath(
-          clipper: MyCustomClipper(),
-          child: SizedBox(
-            height: Dimensions.height250(context),
-            width: MediaQuery.of(context).size.width,
-            child: Image.asset(ImageClass.imageLogin, fit: BoxFit.cover),
+        Hero(
+          tag: "image_login",
+          child: ClipPath(
+            clipper: MyCustomClipper(),
+            child: SizedBox(
+              height: Dimensions.height250(context),
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset(ImageClass.imageLogin, fit: BoxFit.cover),
+            ),
           ),
         ),
         Center(
