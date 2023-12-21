@@ -31,6 +31,13 @@ class Dimensions{
   static double minHeight50(BuildContext context){
     return screenHeight(context)/-16.54;
   }
+  static double minHeight75(BuildContext context){
+    return screenHeight(context)/-11.02;
+  }
+
+
+
+
   // Height
   static double height0(BuildContext context){
     return screenHeight(context) * 0;
@@ -59,6 +66,12 @@ class Dimensions{
   static double height100(context){
     return screenHeight(context)/8.27;
   }
+  static double height140(context){
+    return screenHeight(context)/5.91;
+  }
+  static double height145(context){
+    return screenHeight(context)/5.70;
+  }
   static double height150(context){
     return screenHeight(context)/5.51;
   }
@@ -67,6 +80,12 @@ class Dimensions{
   }
   static double height170(context){
     return screenHeight(context)/4.86;
+  }
+  static double height180(context){
+    return screenHeight(context)/4.59;
+  }
+  static double height185(context){
+    return screenHeight(context)/4.47;
   }
   static double height200(context){
     return screenHeight(context)/4.13;
@@ -93,8 +112,35 @@ class Dimensions{
   static double widht20(context){
     return screenWidht(context)/19.64;
   }
+  static double widht25(context){
+    return screenWidht(context)/15.71;
+  }
+  static double widht30(context){
+    return screenWidht(context)/13.09;
+  }
+  static double widht50(context){
+    return screenWidht(context)/7.85;
+  }
   static double widht100(context){
     return screenWidht(context)/3.93;
+  }
+  static double widht140(context){
+    return screenWidht(context)/2.80;
+  }
+  static double widht145(context){
+    return screenWidht(context)/2.71;
+  }
+  static double widht160(context){
+    return screenWidht(context)/2.45;
+  }
+  static double widht170(context){
+    return screenWidht(context)/2.31;
+  }
+  static double widht200(context){
+    return screenWidht(context)/1.96;
+  }
+  static double widht250(context){
+    return screenWidht(context)/1.57;
   }
   static double widht360(context){
     return screenWidht(context)/1.1;

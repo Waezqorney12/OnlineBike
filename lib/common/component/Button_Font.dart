@@ -1,4 +1,4 @@
-import 'package:bike_online_application/common/component/Font/PoppinText.dart';
+import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class ButtonFont extends StatelessWidget {
                           ])
                             .createShader(bounds);
                       },
-                      child: PoppinText(text: textTwo, fontSize: Dimensions.font12(context), weight: FontWeight.w500, isBlack: false,)
+                      child: BinaryPoppinText(text: textTwo, fontSize: Dimensions.font12(context), weight: FontWeight.w500, isBlack: false,)
                     ),
                   )
                 ],

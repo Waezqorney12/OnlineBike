@@ -1,4 +1,4 @@
-import 'package:bike_online_application/common/component/Font/PoppinText.dart';
+import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/common/constants/image.dart';
@@ -36,7 +36,7 @@ class GoogleButton extends StatelessWidget {
                 child: Image.asset(ImageClass.google),
               ),
             ),
-            PoppinText(
+            BinaryPoppinText(
               text: "Continue with Google",
               fontSize: Dimensions.font16(context),
               weight: FontWeight.w500,

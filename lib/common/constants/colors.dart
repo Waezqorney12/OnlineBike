@@ -11,4 +11,30 @@ class ColorClass{
   static Color darkBlue = const Color(0xFF4B4CED);
   static Color darkGreen = const Color(0xFF2F7591);
   static Color yellowCustom = const Color.fromARGB(255, 238, 220, 60);
+
+  // Bottom Navigation Bar
+  static Color navigations = const Color(0xFF2D3662);
+
+  static Color navUp = const Color(0xFF363E51);
+  static Color navDown = const Color(0xFF181C24);
+  static Gradient getNavGradient() {
+    return LinearGradient(
+      colors: [
+        navUp, navDown
+        ],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    );
+  }
+
+  // Box Personal Information
+  static Color boxUp = const Color(0xFF353F54);
+  static Color boxDown = const Color(0xFF222834).withOpacity(.0);
+
+  // Credit Card
+  //static Color creditCard = const Color(0xFF1B16FF);
+  static Color logoCard1 = const Color(0xFFEB001B);
+  static Color logoCard2 = const Color(0xFFF79E1B);
+  static Color effectCard = const Color (0xFF4A4A4A);
+  //static Color effectCard = const Color (0xFFFEFEFE);
 }

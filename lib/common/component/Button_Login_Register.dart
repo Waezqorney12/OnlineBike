@@ -1,4 +1,4 @@
-import 'package:bike_online_application/common/component/Font/PoppinText.dart';
+import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class ButtonFormat extends StatelessWidget {
                   backgroundColor: MaterialStatePropertyAll(ColorClass.white)),
               onPressed: buttonPressed,
               child: Center(
-                  child: PoppinText(text: text, fontSize: 16, weight: FontWeight.bold, isBlack: true,)),
+                  child:  BinaryPoppinText(text: text, fontSize: 16, weight: FontWeight.bold, isBlack: true,)),
             );
   }
 }

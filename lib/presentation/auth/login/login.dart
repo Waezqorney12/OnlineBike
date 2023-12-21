@@ -4,7 +4,7 @@ import 'package:bike_online_application/common/component/Button_Font.dart';
 import 'package:bike_online_application/common/component/Button_Google.dart';
 import 'package:bike_online_application/common/component/Button_Login_Register.dart';
 import 'package:bike_online_application/common/component/Diveder.dart';
-import 'package:bike_online_application/common/component/Font/PoppinText.dart';
+import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/common/constants/image.dart';
@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                     ColorClass.darkBlue
                   ]).createShader(bounds);
             },
-            child: PoppinText(
+            child:  BinaryPoppinText(
               text: "Forgot Password?",
               fontSize: Dimensions.font14(context),
               weight: FontWeight.normal,
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
             child: SizedBox(
               height: Dimensions.height250(context),
               width: MediaQuery.of(context).size.width,
-              child: Image.asset(ImageClass.imageLogin, fit: BoxFit.cover),
+              child: Image.asset(ImageClass.imageLogin, fit: BoxFit.fill),
             ),
           ),
         ),
@@ -213,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.only(
           top: Dimensions.height30(context),
           bottom: Dimensions.height15(context)),
-      child: PoppinText(
+      child:  BinaryPoppinText(
         text: text,
         fontSize: Dimensions.font16(context),
         weight: FontWeight.normal,

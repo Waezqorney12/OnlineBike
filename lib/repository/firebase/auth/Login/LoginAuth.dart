@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
-
-import 'package:bike_online_application/common/component/Font/MontserratText.dart';
-import 'package:bike_online_application/presentation/Home/dashboard/dashboard.dart';
+import 'package:bike_online_application/presentation/dashboard/dashboard.dart';
+import 'package:bike_online_application/presentation/navigation/navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -16,12 +15,9 @@ class LoginAuth {
     try {
       _userCredential = await _auth
           .signInWithEmailAndPassword(email: email, password: password);
-      print("TEST: ${_userCredential!.additionalUserInfo}");
-      print("TEST: ${_userCredential!.credential}");
-      print("TEST: ${_userCredential!.user}");
       if (_userCredential!.user!.email!.isNotEmpty ) {
         if (context.mounted) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Dashboard(),));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Navigations(),));
         }
       }
     } on FirebaseException catch (e) {
@@ -48,7 +44,7 @@ class LoginAuth {
     );
     if (credential.accessToken!.isNotEmpty) {
       if (context.mounted) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Dashboard(),));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Navigations(),));
       }
     }
     return _userCredential;

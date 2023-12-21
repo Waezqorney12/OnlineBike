@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 import 'package:bike_online_application/common/component/AlertDialog.dart';
 import 'package:bike_online_application/data/model/auth/profile.dart';
-import 'package:bike_online_application/presentation/Home/dashboard/dashboard.dart';
+import 'package:bike_online_application/presentation/dashboard/dashboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,7 +55,7 @@ class RegisterAuth {
         if (confirm == password) {
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: emailUser, password: confirm);
-          userDetails(email: emailUser, password: password);
+          userDetails(email: emailUser, password: password, gambarProfile: "Udentified picture", nama: "Udentified name");
           if (context.mounted) {
             ShowDialog().checkDialogs(context, "Sign Up Success");
           }

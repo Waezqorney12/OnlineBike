@@ -4,7 +4,7 @@ import 'package:bike_online_application/common/component/Button_Google.dart';
 import 'package:bike_online_application/common/component/Button_Login_Register.dart';
 import 'package:bike_online_application/common/component/Diveder.dart';
 import 'package:bike_online_application/common/component/Font/MontserratText.dart';
-import 'package:bike_online_application/common/component/Font/PoppinText.dart';
+import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/presentation/auth/login/login.dart';
@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               Padding(
                 padding: EdgeInsets.only(top: Dimensions.height30(context)),
-                child: PoppinText(
+                child:  BinaryPoppinText(
                   text: "Get your account",
                   fontSize: Dimensions.font28(context),
                   weight: FontWeight.bold,
@@ -180,7 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
       padding: EdgeInsets.only(
           top: Dimensions.height30(context),
           bottom: Dimensions.height15(context)),
-      child: PoppinText(
+      child:  BinaryPoppinText(
         text: text,
         fontSize: Dimensions.font16(context),
         weight: FontWeight.normal,
