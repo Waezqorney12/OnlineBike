@@ -28,14 +28,28 @@ class Dimensions{
   }
 
   // Minus Height
+  static double minHeight25(BuildContext context){
+    return screenHeight(context)/-33.08;
+  }
   static double minHeight50(BuildContext context){
     return screenHeight(context)/-16.54;
+  }
+  static double minHeight70(BuildContext context){
+    return screenHeight(context)/-11.81;
   }
   static double minHeight75(BuildContext context){
     return screenHeight(context)/-11.02;
   }
 
-
+  static double minWidht100(context){
+    return screenWidht(context)/-3.93;
+  }
+  static double minWidht150(context){
+    return screenWidht(context)/-2.61;
+  }
+  static double minWidht200(context){
+    return screenWidht(context)/-1.96;
+  }
 
 
   // Height
@@ -54,6 +68,9 @@ class Dimensions{
   static double height20(context){
     return screenHeight(context)/41.35;
   }
+  static double height28(context){
+    return screenHeight(context)/29.53;
+  }
   static double height30(context){
     return screenHeight(context)/27.56;
   }
@@ -63,8 +80,14 @@ class Dimensions{
   static double height50(context){
     return screenHeight(context)/16.54;
   }
+  static double height75(context){
+    return screenHeight(context)/11.02;
+  }
   static double height100(context){
     return screenHeight(context)/8.27;
+  }
+  static double height130(context){
+    return screenHeight(context)/6.36;
   }
   static double height140(context){
     return screenHeight(context)/5.91;
@@ -115,14 +138,26 @@ class Dimensions{
   static double widht25(context){
     return screenWidht(context)/15.71;
   }
+  static double widht28(context){
+    return screenWidht(context)/14.02;
+  }
   static double widht30(context){
     return screenWidht(context)/13.09;
+  }
+  static double widht45(context){
+    return screenWidht(context)/8.73;
   }
   static double widht50(context){
     return screenWidht(context)/7.85;
   }
+  static double widht60(context){
+    return screenWidht(context)/6.54;
+  }
   static double widht100(context){
     return screenWidht(context)/3.93;
+  }
+  static double widht130(context){
+    return screenWidht(context)/3.02;
   }
   static double widht140(context){
     return screenWidht(context)/2.80;
