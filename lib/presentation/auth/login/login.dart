@@ -23,11 +23,18 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     precacheImage(const AssetImage(ImageClass.imageLogin), context);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
   }
 
   @override
@@ -38,22 +45,83 @@ class _LoginPageState extends State<LoginPage> {
         controller: ScrollController(),
         child: Column(
           children: [
-            stack(context),
+            Stack(
+              children: [
+                ClipPath(
+                  clipper: MyCustomClipper(),
+                  child: SizedBox(
+                    height: Dimensions.height200(context),
+                    width: MediaQuery.of(context).size.width,
+                    child:
+                        Image.asset(ImageClass.imageLogin, fit: BoxFit.cover),
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(top: Dimensions.height110(context)),
+                    child: Container(
+                      height: Dimensions.height100(context),
+                      width: Dimensions.widht100(context),
+                      decoration: BoxDecoration(
+                          color: ColorClass.white, shape: BoxShape.circle),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          fontLogo(text: "Rack"),
+                          fontLogo(text: "And", isSize: false),
+                          fontLogo(text: "Bold")
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
             Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: Dimensions.widht15(context)),
               child: Column(
                 children: [
+                  SizedBox(
+                    height: Dimensions.height20(context),
+                  ),
                   formEmail(context, emailController),
                   formPassword(context, passwordController),
-                  fontForgotPassword(context),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: Dimensions.height15(context),
+                            right: Dimensions.widht10(context),
+                            bottom: Dimensions.height30(context)),
+                        child: ShaderMask(
+                          shaderCallback: (bounds) {
+                            return LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: <Color>[
+                                  ColorClass.lightBlue,
+                                  ColorClass.darkBlue
+                                ]).createShader(bounds);
+                          },
+                          child: BinaryPoppinText(
+                            text: "Forgot Password?",
+                            fontSize: Dimensions.font14(context),
+                            weight: FontWeight.normal,
+                            isBlack: false,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   ButtonFormat(
                       text: "Login",
                       buttonPressed: () async {
-                        await LoginAuth().loginAuth(
-                            emailController.text.trim(),
-                            passwordController.text.trim(),
-                            context);
+                        await LoginAuth().loginAuth(emailController.text.trim(),
+                            passwordController.text.trim(), context);
                       }),
                   const DivederOr(),
                   GoogleButton(buttonPressed: () async {
@@ -78,85 +146,18 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Align fontForgotPassword(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: GestureDetector(
-        onTap: () {},
-        child: Padding(
-          padding: EdgeInsets.only(
-              top: Dimensions.height15(context),
-              right: Dimensions.widht10(context),
-              bottom: Dimensions.height30(context)),
-          child: ShaderMask(
-            shaderCallback: (bounds) {
-              return LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    ColorClass.lightBlue,
-                    ColorClass.darkBlue
-                  ]).createShader(bounds);
-            },
-            child:  BinaryPoppinText(
-              text: "Forgot Password?",
-              fontSize: Dimensions.font14(context),
-              weight: FontWeight.normal,
-              isBlack: false,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  Montserrat fontLogo({required String text, bool isSize = true}) {
+    final double size = isSize == true
+        ? Dimensions.font18(context)
+        : Dimensions.font12(context);
+    final FontWeight fontWeight =
+        isSize == true ? FontWeight.bold : FontWeight.w500;
 
-  Stack stack(BuildContext context) {
-    return Stack(
-      children: [
-        Hero(
-          tag: "image_login",
-          child: ClipPath(
-            clipper: MyCustomClipper(),
-            child: SizedBox(
-              height: Dimensions.height250(context),
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset(ImageClass.imageLogin, fit: BoxFit.fill),
-            ),
-          ),
-        ),
-        Center(
-          child: Padding(
-            padding: EdgeInsets.only(top: Dimensions.height160(context)),
-            child: Container(
-              height: Dimensions.height100(context),
-              width: Dimensions.widht100(context),
-              decoration: BoxDecoration(
-                  color: ColorClass.white, shape: BoxShape.circle),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Montserrat(
-                      text: "Rock",
-                      color: ColorClass.darkGreen,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                  Montserrat(
-                      text: "And",
-                      color: ColorClass.darkGreen,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500),
-                  Montserrat(
-                      text: "Bold",
-                      color: ColorClass.darkGreen,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ],
-              ),
-            ),
-          ),
-        )
-      ],
-    );
+    return Montserrat(
+        text: text,
+        color: ColorClass.darkGreen,
+        fontSize: size,
+        fontWeight: fontWeight);
   }
 
   Widget formEmail(BuildContext context, TextEditingController control) {
@@ -213,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.only(
           top: Dimensions.height30(context),
           bottom: Dimensions.height15(context)),
-      child:  BinaryPoppinText(
+      child: BinaryPoppinText(
         text: text,
         fontSize: Dimensions.font16(context),
         weight: FontWeight.normal,
@@ -229,7 +230,7 @@ class MyCustomClipper extends CustomClipper<Path> {
     Path path = Path();
 
     path.lineTo(size.width, 0);
-    path.lineTo(size.width, 150);
+    path.lineTo(size.width, 100);
     path.lineTo(0, size.height);
 
     return path;

@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 import 'package:bike_online_application/common/component/AlertDialog.dart';
 import 'package:bike_online_application/data/model/auth/profile.dart';
-import 'package:bike_online_application/presentation/dashboard/dashboard.dart';
+import 'package:bike_online_application/presentation/navigation/navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,11 +24,11 @@ class RegisterAuth {
     return data;
   }
 
-  Future userDetails(
+  Profile userDetails(
       {required String email,
       required String password,
       String? gambarProfile,
-      String? nama}) async {
+      String? nama}) {
     Profile profile = Profile(
         email: email,
         password: password,
@@ -38,10 +38,12 @@ class RegisterAuth {
         nomorTelepon: "Nomor Telepon",
         gambarProfile: gambarProfile,
         status: "Bronze");
-    await _db.collection('users').add(profile.toFirestore());
+    _db.collection('users').add(profile.toFirestore());
+    
+    return profile;
   }
 
-  Future<void> signUp(
+  Future<void> signUpWithEmailAndPassword(
       {required String emailUser,
       required String password,
       required String confirm,
@@ -55,29 +57,29 @@ class RegisterAuth {
         if (confirm == password) {
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: emailUser, password: confirm);
-          userDetails(email: emailUser, password: password, gambarProfile: "Udentified picture", nama: "Udentified name");
-          if (context.mounted) {
-            ShowDialog().checkDialogs(context, "Sign Up Success");
-          }
+          userDetails(
+              email: emailUser,
+              password: password,
+              gambarProfile: "Udentified picture",
+              nama: "Udentified name");
+          if (context.mounted) ShowDialog().checkDialogs(context, "Sign Up Success");
         } else {
           if (context.mounted) {
             ShowDialog().errorDialogs(context, "Password doesnt match");
           }
         }
       } else {
-        if (context.mounted) {
-          ShowDialog().errorDialogs(context, "Empty Password");
-        }
+        if (context.mounted) ShowDialog().errorDialogs(context, "Empty Password");
       }
     } on FirebaseException catch (e) {
-      if (e.code == 'weak-password') {
-        if (context.mounted) {
-          ShowDialog().warningDialogs(context, "Your password weak");
-        }
-      } else if (e.code == 'email-already-in-use') {
-        if (context.mounted) {
-          ShowDialog().errorDialogs(context, 'Account already exist');
-        }
+      switch (e.code) {
+        case 'weak-password':
+          if (context.mounted) ShowDialog().warningDialogs(context, "Your password weak");
+          break;
+        case 'email-already-in-use':
+          if (context.mounted) ShowDialog().errorDialogs(context, 'Account already exist');
+        default:
+          if (context.mounted) ShowDialog().errorDialogs(context, 'Udentified Error');
       }
     } catch (e) {
       throw Exception(e);
@@ -100,29 +102,34 @@ class RegisterAuth {
         if (userCredential.additionalUserInfo!.isNewUser == true) {
           _user = userCredential.user;
           final data = userDetails(
-              email: _user!.email.toString(),
+              email: _user?.email.toString() ?? "Udentified email",
               password: "123456",
-              gambarProfile: _user!.photoURL.toString(),
-              nama: _user!.displayName.toString());
-          if (data != null) {
+              gambarProfile: _user?.photoURL.toString() ?? "Udentified picture",
+              nama: _user?.displayName.toString() ?? "Udentified name");
+          if (data.email != null) {
             if (context.mounted) {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Dashboard(),
+                    builder: (context) => const Navigations(),
                   ));
             }
+          } else {
+            ShowDialog().errorDialogs(context, "Data unavailable");
           }
-        } else{
+        } else {
           ShowDialog().errorDialogs(context, "User already exist");
         }
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'account-exists-with-different-credential') {
-          ShowDialog().warningDialogs(context, "Account already exist");
-        } else if (e.code == 'invalid-credential') {
-          ShowDialog().errorDialogs(context, "Invalid credential");
-        } else {
-          ShowDialog().errorDialogs(context, e.code);
+        switch (e.code) {
+          case 'account-exists-with-different-credential':
+            ShowDialog().warningDialogs(context, "Account already exist");
+            break;
+          case 'invalid-credential':
+            ShowDialog().errorDialogs(context, "Invalid credential");
+            break;
+          default:
+            ShowDialog().errorDialogs(context, e.code);
         }
       } catch (e) {
         ShowDialog().errorDialogs(context, e.toString());

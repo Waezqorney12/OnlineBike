@@ -44,6 +44,7 @@ class _NavigationsState extends State<Navigations> {
             onTap: updateIndex,
             currentIndex: currentindex,
             showSelectedLabels: false,
+            
             items: [
               barItem(
                   image: ImageClass.bicycles60,

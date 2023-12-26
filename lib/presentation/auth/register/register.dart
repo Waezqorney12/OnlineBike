@@ -30,9 +30,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
-    email;
-    password;
-    confirm;
+    email.dispose();
+    password.dispose();
+    confirm.dispose();
     super.dispose();
   }
 
@@ -75,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ButtonFormat(
                   text: "Register",
                   buttonPressed: () async {
-                    await RegisterAuth().signUp(
+                    await RegisterAuth().signUpWithEmailAndPassword(
                         emailUser: email.text.trim(),
                         password: password.text.trim(),
                         confirm: confirm.text.trim(),

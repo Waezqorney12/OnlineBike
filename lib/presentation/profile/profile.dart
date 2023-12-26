@@ -1,6 +1,5 @@
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/component/Font/HiddenText.dart';
-import 'package:bike_online_application/common/component/Font/InterText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
@@ -9,7 +8,6 @@ import 'package:bike_online_application/data/model/auth/profile.dart';
 import 'package:bike_online_application/repository/firebase/auth/Register/RegisterAuth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -25,8 +23,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: ColorClass.background,
       body: FutureBuilder<Profile>(
-          future: RegisterAuth()
-              .getUserProfile(email: user!.email.toString(), context: context),
+          future: RegisterAuth().getUserProfile(
+              email: user?.email.toString() ?? "Udentified email",
+              context: context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -78,16 +77,20 @@ class _ProfilePageState extends State<ProfilePage> {
                   textData(data.status.toString(), context,
                       isTrue: false, isSize: false),
                   SizedBox(height: Dimensions.height20(context)),
-                  subText(context, text: "Personal Information"),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Dimensions.widht25(context),
+                        vertical: Dimensions.height10(context)),
+                    child: BinaryPoppinText(
+                        isBlack: false,
+                        text: "Personal Information",
+                        fontSize: Dimensions.font16(context),
+                        weight: FontWeight.w600),
+                  ),
                   boxInformation(
                       emailInformation: data.email.toString(),
                       alamatInformation: data.alamat.toString(),
                       nomorInformation: data.nomorTelepon.toString()),
-                  subText(context, text: "Credit Card"),
-                  boxCredit(
-                      cardName: data.nama!.toUpperCase(),
-                      numberCard: "0000 0000 0000 0000",
-                      expiredCard: "09/28")
                 ],
               );
             } else {
@@ -102,8 +105,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Container profilePicture(BuildContext context,
       {required DecorationImage image}) {
     return Container(
-      width: Dimensions.height130(context),
-      height: Dimensions.height130(context),
+      width: Dimensions.height100(context),
+      height: Dimensions.height100(context),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
           color: ColorClass.background, // Setel warna shadow menjadi transparan
@@ -154,8 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
       required String subText,
       required IconData icons}) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          vertical: Dimensions.height15(context)),
+      padding: EdgeInsets.symmetric(vertical: Dimensions.height15(context)),
       child: Row(
         children: [
           Expanded(
@@ -170,148 +172,18 @@ class _ProfilePageState extends State<ProfilePage> {
             child: SizedBox(
               width: Dimensions.widht145(context),
               child: BinaryPoppinText(
-                  text: subText,
-                  fontSize: Dimensions.font12(context),
-                  weight: FontWeight.w600,
-                  isBlack: false,
-                ),
-              
+                text: subText,
+                fontSize: Dimensions.font12(context),
+                weight: FontWeight.w600,
+                isBlack: false,
+              ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(right: Dimensions.widht15(context)),
-            child: HiddenText(context: context, text: information))
+              padding: EdgeInsets.only(right: Dimensions.widht15(context)),
+              child: HiddenText(context: context, text: information))
         ],
       ),
-    );
-  }
-
-  Padding boxCredit(
-      {required String cardName,
-      required String expiredCard,
-      required String numberCard}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimensions.widht20(context)),
-      child: Container(
-        height: Dimensions.height185(context),
-        width: Dimensions.screenWidht(context),
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(color: Colors.white.withOpacity(.5), spreadRadius: .3)
-        ], borderRadius: BorderRadius.circular(10), color: Colors.white),
-        child: Stack(
-          children: [
-            cardNumberInfo(text: numberCard),
-            cardInformation(text: cardName),
-            cardExpired(text: expiredCard),
-            logoCard(left: Dimensions.widht15(context)),
-            logoCard(isDefault: false, left: Dimensions.widht30(context)),
-            gradientCreditCart(
-                color: ColorClass.effectCard.withOpacity(.25),
-                right: Dimensions.minWidht100(context)),
-            gradientCreditCart(
-                color: ColorClass.effectCard.withOpacity(.25),
-                right: Dimensions.minWidht150(context)),
-            gradientCreditCart(
-                color: ColorClass.effectCard.withOpacity(.35),
-                right: Dimensions.minWidht200(context)),
-            Positioned(
-                right: Dimensions.widht15(context),
-                bottom: Dimensions.height15(context),
-                child: SizedBox(
-                    height: Dimensions.height30(context),
-                    width: Dimensions.widht45(context),
-                    child: Image.asset(ImageClass.chip))),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Positioned cardNumberInfo({required String text}) {
-    return positionCardInformation(
-        text: text,
-        bottom: Dimensions.height75(context),
-        fontSize: Dimensions.font20(context),
-        fontWeight: FontWeight.bold);
-  }
-
-  Positioned cardInformation({required String text}) {
-    return positionCardInformation(
-        bottom: Dimensions.height30(context),
-        fontSize: Dimensions.font12(context),
-        fontWeight: FontWeight.w600,
-        text: text);
-  }
-
-  Positioned cardExpired({required String text}) {
-    return positionCardInformation(
-        bottom: Dimensions.height10(context),
-        fontSize: Dimensions.font12(context),
-        fontWeight: FontWeight.w600,
-        text: text);
-  }
-
-  Positioned positionCardInformation(
-      {required String text,
-      required double bottom,
-      required double fontSize,
-      required FontWeight fontWeight}) {
-    return Positioned(
-        bottom: bottom,
-        left: Dimensions.widht15(context),
-        child: Column(
-          children: [
-            InterFont(
-                text: text,
-                fontSize: fontSize,
-                fontWeight: fontWeight,
-                colors: ColorClass.background),
-          ],
-        ));
-  }
-
-  Positioned logoCard({bool isDefault = true, required double left}) {
-    return Positioned(
-      top: Dimensions.height10(context),
-      left: left,
-      child: Container(
-        height: Dimensions.height28(context),
-        width: Dimensions.widht28(context),
-        decoration: BoxDecoration(
-            color: isDefault
-                ? ColorClass.logoCard1.withOpacity(.9)
-                : ColorClass.logoCard2.withOpacity(.9),
-            shape: BoxShape.circle),
-      ),
-    );
-  }
-
-  Positioned gradientCreditCart({required Color color, required double right}) {
-    return Positioned(
-      top: Dimensions.minHeight25(context),
-      right: right,
-      child: Transform.rotate(
-        angle: math.pi / 4,
-        child: Container(
-          height: Dimensions.height250(context),
-          width: Dimensions.widht250(context),
-          decoration: BoxDecoration(
-              color: color, borderRadius: BorderRadius.circular(60)),
-        ),
-      ),
-    );
-  }
-
-  Padding subText(BuildContext context, {required String text}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: Dimensions.widht25(context),
-          vertical: Dimensions.height10(context)),
-      child: BinaryPoppinText(
-          isBlack: false,
-          text: text,
-          fontSize: Dimensions.font16(context),
-          weight: FontWeight.w600),
     );
   }
 
@@ -322,7 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Padding(
       padding: EdgeInsets.only(
-          left: Dimensions.widht170(context),
+          left: Dimensions.widht130(context),
           top: isDimensions ? 0 : Dimensions.height10(context)),
       child: PoppinText(
         text: text,

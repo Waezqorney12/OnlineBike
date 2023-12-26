@@ -1,5 +1,11 @@
+import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
+import 'package:bike_online_application/common/component/Font/InterText.dart';
+import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
+import 'package:bike_online_application/common/constants/image.dart';
+import 'package:bike_online_application/repository/firebase/auth/Register/RegisterAuth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -11,47 +17,100 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorClass.background,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child:  Transform.rotate(
-              angle: math.pi/4,
-              child: Container(
-                    height: Dimensions.height100(context),
-                    width: Dimensions.widht100(context),
-                    decoration: BoxDecoration(
-                      color: ColorClass.lightBlue,
-                      borderRadius: BorderRadius.circular(10)
-                    ),
+        appBar: AppBar(
+          title: PoppinText(text: "Bicycle Store", fontSize: Dimensions.font28(context), weight: FontWeight.bold, color: Colors.white.withOpacity(.7)),
+          bottom: PreferredSize(
+              preferredSize: Size.fromHeight(Dimensions.height75(context)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: Dimensions.height20(context)),
+                child: Container(
+                  height: Dimensions.height45(context),
+                  width: MediaQuery.of(context).size.width -
+                      Dimensions.widht30(context),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: ColorClass.darkBlue),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Expanded(
+                        flex: 2,
+                        child:  Icon(
+                              Icons.bike_scooter,
+                              color: Colors.grey,
+                            ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: PoppinText(
+                            text: "Bicycle, Helmet, Shoes",
+                            fontSize: Dimensions.font14(context),
+                            weight: FontWeight.normal,
+                            color: Colors.grey),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: Dimensions.widht10(context)),
+                        child: const Icon(
+                          Icons.search,
+                          color: Colors.grey,
+                        ),
+                      )
+                    ],
                   ),
-            ),
-            ),
-          
-          
-        ],
+                ),
+              )),
+          elevation: 5,
+          backgroundColor: ColorClass.backgroundAppbar,
+          actions: [
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: Dimensions.widht15(context)),
+              child: IconButton(
+                  onPressed: () {},
+                  icon: CircleAvatar(
+                      backgroundColor: ColorClass.white,
+                      child: Image.asset(ImageClass.personsBlack))),
+            )
+          ],
+        ),
+        backgroundColor: ColorClass.background,
+        body: FutureBuilder(
+          future: RegisterAuth().getUserProfile(
+              email: user?.email ?? "Udentified email", context: context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: condition(context, text: "Snapshot Error"));
+            } else if (snapshot.hasData) {
+              final data = snapshot.data;
+              return SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [],
+                ),
+              );
+            } else {
+              return condition(context, text: "Something went wrong");
+            }
+          },
+        ));
+  }
+
+  Center condition(BuildContext context, {required String text}) {
+    return Center(
+      child: BinaryPoppinText(
+        text: text,
+        fontSize: Dimensions.font14(context),
+        weight: FontWeight.bold,
+        isBlack: false,
       ),
     );
   }
-}
-
-class MyCustomClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.moveTo(size.width / 2, 0);
-    path.lineTo(size.width, 0);
-    path.lineTo(0, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }

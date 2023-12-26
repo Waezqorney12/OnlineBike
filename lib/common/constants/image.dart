@@ -7,6 +7,7 @@ class ImageClass{
   static const String defaultPictureProfile = "assets/jpg/color/profile.jpg";
   static const String backgroundDefault = "assets/jpg/color/background.jpg";
   static const String profilePicture = "assets/jpg/color/profilePic.jpg";
+  static const String bicyclePromoAds = "assets/jpg/color/promoAds.jpg";
 
   //100%
   static const String bicycles = "assets/png/color/bicycle.png";
@@ -14,6 +15,7 @@ class ImageClass{
   static const String documents = "assets/png/color/doc.text.fill.png";
   static const String maps = "assets/png/color/map.fill.png";
   static const String persons = "assets/png/color/person.fill.png";
+  static const String personsBlack = "assets/png/color/person.fill.black.png";
 
   //60%
   static const String bicycles60 = "assets/png/non/bicycle60.png";

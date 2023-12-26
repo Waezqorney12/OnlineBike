@@ -1,7 +1,6 @@
 
 import 'package:bike_online_application/common/constants/image.dart';
 import 'package:bike_online_application/presentation/auth/login/login.dart';
-import 'package:bike_online_application/presentation/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

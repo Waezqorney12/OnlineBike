@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ColorClass{
+class ColorClass {
   static Color background = const Color(0xFF242C3B);
   static Color backgroundAppbar = const Color(0xFF181C24).withOpacity(.4);
   static Color white = const Color(0xFFFFFFFF);
@@ -17,11 +17,9 @@ class ColorClass{
 
   static Color navUp = const Color(0xFF363E51);
   static Color navDown = const Color(0xFF181C24);
-  static Gradient getNavGradient() {
+  static Gradient getBlueGradient() {
     return LinearGradient(
-      colors: [
-        navUp, navDown
-        ],
+      colors: [lightBlue, darkBlue],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     );
@@ -35,6 +33,6 @@ class ColorClass{
   //static Color creditCard = const Color(0xFF1B16FF);
   static Color logoCard1 = const Color(0xFFEB001B);
   static Color logoCard2 = const Color(0xFFF79E1B);
-  static Color effectCard = const Color (0xFF4A4A4A);
+  static Color effectCard = const Color(0xFF4A4A4A);
   //static Color effectCard = const Color (0xFFFEFEFE);
 }

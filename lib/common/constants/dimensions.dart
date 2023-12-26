@@ -86,6 +86,9 @@ class Dimensions{
   static double height100(context){
     return screenHeight(context)/8.27;
   }
+  static double height110(context){
+    return screenHeight(context)/7.52;
+  }
   static double height130(context){
     return screenHeight(context)/6.36;
   }
@@ -185,25 +188,28 @@ class Dimensions{
 
   // Font Size
   static double font5(context){
-    return screenFont(context) * 4.38;
+    return screenFont(context) * 4.4;
   }
   static double font10(context){
-    return screenFont(context) * 8.696;
+    return screenFont(context) * 8.7;
   }
   static double font12(context){
-    return screenFont(context) * 10.435;
+    return screenFont(context) * 10.43;
   }
   static double font14(context){
     return screenFont(context) * 12.17;
   }
   static double font16(context){
-    return screenFont(context) * 13.913;
+    return screenFont(context) * 13.91;
+  }
+  static double font18(context){
+    return screenFont(context) * 15.65;
   }
   static double font20(context){
-    return screenFont(context) * 17.391;
+    return screenFont(context) * 17.39;
   }
   static double font28(context){
-    return screenFont(context) * 24.347;
+    return screenFont(context) * 24.35;
   }
 
  
