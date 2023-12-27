@@ -49,11 +49,12 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 ClipPath(
                   clipper: MyCustomClipper(),
-                  child: SizedBox(
+                  child: Container(
                     height: Dimensions.height200(context),
                     width: MediaQuery.of(context).size.width,
-                    child:
-                        Image.asset(ImageClass.imageLogin, fit: BoxFit.cover),
+                    decoration: BoxDecoration(
+                      color: ColorClass.lightBlue.withOpacity(.9)
+                    ),
                   ),
                 ),
                 Center(
@@ -107,11 +108,16 @@ class _LoginPageState extends State<LoginPage> {
                                   ColorClass.darkBlue
                                 ]).createShader(bounds);
                           },
-                          child: BinaryPoppinText(
-                            text: "Forgot Password?",
-                            fontSize: Dimensions.font14(context),
-                            weight: FontWeight.normal,
-                            isBlack: false,
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pushReplacementNamed(context, '/ForgotPassword');
+                            },
+                            child: BinaryPoppinText(
+                              text: "Forgot Password?",
+                              fontSize: Dimensions.font14(context),
+                              weight: FontWeight.normal,
+                              isBlack: false,
+                            ),
                           ),
                         ),
                       ),

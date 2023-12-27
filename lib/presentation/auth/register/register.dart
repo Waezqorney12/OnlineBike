@@ -38,64 +38,61 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    logger.d(MediaQuery.of(context).size);
     return Scaffold(
       backgroundColor: ColorClass.background,
       body: SingleChildScrollView(
         controller: ScrollController(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: Dimensions.widht15(context),
-              vertical: Dimensions.height15(context)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: Dimensions.height30(context)),
-                child:  BinaryPoppinText(
-                  text: "Get your account",
-                  fontSize: Dimensions.font28(context),
-                  weight: FontWeight.bold,
-                  isBlack: false,
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: Dimensions.widht15(context),),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BinaryPoppinText(
+                    text: "Get your account",
+                    fontSize: Dimensions.font28(context),
+                    weight: FontWeight.bold,
+                    isBlack: false,
+                  ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: Dimensions.height30(context)),
+                  child: Montserrat(
+                    color: ColorClass.white.withOpacity(.6),
+                    text: "Create yout account for free without tax",
+                    fontSize: Dimensions.font14(context),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: Dimensions.height30(context)),
-                child: Montserrat(
-                  color: ColorClass.white.withOpacity(.6),
-                  text: "Create yout account for free without tax",
-                  fontSize: Dimensions.font14(context),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              formEmail(context, email),
-              formPassword(context, password),
-              formPasswords(context, confirm),
-              SizedBox(height: Dimensions.height50(context)),
-              ButtonFormat(
-                  text: "Register",
-                  buttonPressed: () async {
-                    await RegisterAuth().signUpWithEmailAndPassword(
-                        emailUser: email.text.trim(),
-                        password: password.text.trim(),
-                        confirm: confirm.text.trim(),
-                        context: context);
-                  }),
-              const DivederOr(),
-              GoogleButton(buttonPressed: () async {
-                await RegisterAuth().signUpWithGoogle(context);
-              }),
-              ButtonFont(
-                  textOne: "Already have account?",
-                  textTwo: "Sign In",
-                  fontPressed: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
-                        ));
-                  })
-            ],
+                formEmail(context, email),
+                formPassword(context, password),
+                formPasswords(context, confirm),
+                SizedBox(height: Dimensions.height50(context)),
+                ButtonFormat(
+                    text: "Register",
+                    buttonPressed: () async {
+                      await RegisterAuth().signUpWithEmailAndPassword(
+                          emailUser: email.text.trim(),
+                          password: password.text.trim(),
+                          confirm: confirm.text.trim(),
+                          context: context);
+                    }),
+                const DivederOr(),
+                GoogleButton(buttonPressed: () async {
+                  await RegisterAuth().signUpWithGoogle(context);
+                }),
+                ButtonFont(
+                    textOne: "Already have account?",
+                    textTwo: "Sign In",
+                    fontPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ));
+                    })
+              ],
+            ),
           ),
         ),
       ),
