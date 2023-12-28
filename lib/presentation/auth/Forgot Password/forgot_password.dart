@@ -1,3 +1,4 @@
+import 'package:bike_online_application/bloc/auth/forgotPassword/forgot_password_bloc.dart';
 import 'package:bike_online_application/common/component/Border_Form.dart';
 import 'package:bike_online_application/common/component/Button_Login_Register.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
@@ -5,6 +6,7 @@ import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/repository/firebase/auth/Forgot%20Password/ForgotPasswordAuth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -95,10 +97,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: Dimensions.height250(context)),
-                child: ButtonFormat(
-                  text: "Send Email Verification",
-                  buttonPressed: () {
-                    ForgotAuth().sendEmail(context,email: forgotController.text.trim());
+                child: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    return ButtonFormat(
+                      text: "Send Email Verification",
+                      buttonPressed: () {
+                        context.read<ForgotPasswordBloc>().add(
+                          ForgotPasswordSubmitEvent(context: context,email: forgotController.text.trim())
+                        );
+                      },
+                    );
                   },
                 ),
               ),

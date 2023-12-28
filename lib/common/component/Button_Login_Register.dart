@@ -25,18 +25,3 @@ class ButtonFormat extends StatelessWidget {
     );
   }
 }
-
-
-// ElevatedButton(
-//               style: ButtonStyle(
-                
-//                   minimumSize: MaterialStatePropertyAll<Size>(Size(
-//                       Dimensions.widht360(context),
-//                       Dimensions.height50(context))),
-//                   shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(10))),
-//                   backgroundColor: MaterialStatePropertyAll(ColorClass.white)),
-//               onPressed: buttonPressed,
-//               child: Center(
-//                   child:  BinaryPoppinText(text: text, fontSize: 16, weight: FontWeight.bold, isBlack: true,)),
-//             );
