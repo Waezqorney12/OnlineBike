@@ -12,7 +12,7 @@ class LoginAuth {
   UserCredential? _userCredential;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<UserCredential?> loginAuth(
+  Future<void> emailLogin(
       String email, String password, BuildContext context) async {
     try {
       _userCredential = await _auth.signInWithEmailAndPassword(
@@ -27,18 +27,23 @@ class LoginAuth {
         }
       }
     } on FirebaseException catch (e) {
-      if (e.code == 'user-not-found') {
-        logger.d('User not found for that email');
-      } else if (e.code == 'wrong-password') {
-        logger.d('Password doesnt match for that email');
+      switch (e.code) {
+        case 'user-not-found':
+          if(context.mounted) ShowDialog().warningDialogs(context, 'No user found');
+          break;
+        case 'wrong-password':
+          if(context.mounted) ShowDialog().errorDialogs(context, 'Wrong password');
+        case 'invalid-credential':
+          if(context.mounted) ShowDialog().errorDialogs(context, 'Credential is incorrect/expired');
+        default:
+          if(context.mounted) ShowDialog().errorDialogs(context, e.toString());
       }
     } catch (e) {
-      throw Exception(e);
+      if(context.mounted) ShowDialog().errorDialogs(context, e.toString());
     }
-    return _userCredential;
   }
 
-  Future<UserCredential?> firebaseGoogleSignIn(BuildContext context) async {
+  Future<void> firebaseGoogleSignIn(BuildContext context) async {
     final GoogleSignInAccount? login = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication? googleAuth = await login?.authentication;
     final credential = GoogleAuthProvider.credential(
@@ -48,13 +53,7 @@ class LoginAuth {
       if (_userCredential!.additionalUserInfo!.isNewUser == false) {
         if (_userCredential!.credential!.accessToken!.isNotEmpty &&
             _userCredential!.credential!.providerId.isNotEmpty) {
-          if (context.mounted) {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Navigations(),
-                ));
-          }
+          if (context.mounted) Navigator.of(context).pushReplacementNamed('/Navigation');
         }
       } else {
         if (context.mounted) ShowDialog().errorDialogs(context, "No account found");
@@ -62,6 +61,5 @@ class LoginAuth {
     } on FirebaseAuthException catch (e) {
       if (context.mounted) ShowDialog().warningDialogs(context, "Code: ${e.toString()}");
     }
-    return _userCredential;
   }
 }

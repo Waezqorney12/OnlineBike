@@ -1,7 +1,11 @@
 import 'package:bike_online_application/bloc/auth/forgotPassword/forgot_password_bloc.dart';
+import 'package:bike_online_application/bloc/auth/login/login_bloc.dart';
+import 'package:bike_online_application/bloc/auth/register/register_bloc.dart';
 import 'package:bike_online_application/common/constants/image.dart';
 import 'package:bike_online_application/presentation/auth/Forgot%20Password/forgot_password.dart';
 import 'package:bike_online_application/presentation/auth/login/login.dart';
+import 'package:bike_online_application/presentation/auth/register/register.dart';
+import 'package:bike_online_application/presentation/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,17 +24,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    precacheImage(const AssetImage(ImageClass.imageLogin), context);
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ForgotPasswordBloc())
+        BlocProvider(create: (context) => LoginBloc()),
+        BlocProvider(create: (context) => ForgotPasswordBloc()),
+        BlocProvider(create: (context) => RegisterBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: const LoginPage(),
         routes: <String, WidgetBuilder>{
+          '/Register': (context) => const RegisterPage(),
           '/Login': (context) => const LoginPage(),
-          '/ForgotPassword': (context) => const ForgotPasswordPage()
+          '/ForgotPassword': (context) => const ForgotPasswordPage(),
+          '/Navigation': (context) => const Navigations()
         },
       ),
     );

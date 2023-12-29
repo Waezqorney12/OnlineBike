@@ -107,13 +107,7 @@ class RegisterAuth {
               gambarProfile: _user?.photoURL.toString() ?? "Udentified picture",
               nama: _user?.displayName.toString() ?? "Udentified name");
           if (data.email != null) {
-            if (context.mounted) {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Navigations(),
-                  ));
-            }
+            if (context.mounted) Navigator.of(context).pushReplacementNamed('/Navigation');
           } else {
             ShowDialog().errorDialogs(context, "Data unavailable");
           }
@@ -135,7 +129,7 @@ class RegisterAuth {
         ShowDialog().errorDialogs(context, e.toString());
       }
     } else {
-      ShowDialog().errorDialogs(context, "Canceled");
+      ShowDialog().warningDialogs(context, "Canceled");
     }
     return _user;
   }

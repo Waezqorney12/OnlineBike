@@ -17,7 +17,7 @@ class ForgotPasswordBloc
         try {
           await _forgot.sendEmail(event.context, email: event.email);
         } catch (e) {
-          print(e);
+          throw Exception(e);
         }
       }
     });

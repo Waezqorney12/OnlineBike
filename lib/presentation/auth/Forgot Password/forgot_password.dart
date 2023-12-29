@@ -21,7 +21,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     forgotController.dispose();
   }
@@ -98,9 +97,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               Padding(
                 padding: EdgeInsets.only(top: Dimensions.height250(context)),
                 child: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
-                  listener: (context, state) {
-                    // TODO: implement listener
-                  },
+                  listener: (context, state) {},
                   builder: (context, state) {
                     return ButtonFormat(
                       text: "Send Email Verification",

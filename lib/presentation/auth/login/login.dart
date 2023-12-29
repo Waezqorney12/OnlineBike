@@ -1,3 +1,4 @@
+import 'package:bike_online_application/bloc/auth/login/login_bloc.dart';
 import 'package:bike_online_application/common/component/Font/MontserratText.dart';
 import 'package:bike_online_application/common/component/Border_Form.dart';
 import 'package:bike_online_application/common/component/Button_Font.dart';
@@ -9,8 +10,8 @@ import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/common/constants/image.dart';
 import 'package:bike_online_application/presentation/auth/register/register.dart';
-import 'package:bike_online_application/repository/firebase/auth/Login/LoginAuth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
@@ -23,12 +24,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    precacheImage(const AssetImage(ImageClass.imageLogin), context);
-  }
 
   @override
   void dispose() {
@@ -53,8 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: Dimensions.height200(context),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      color: ColorClass.lightBlue.withOpacity(.9)
-                    ),
+                        color: ColorClass.lightBlue.withOpacity(.9)),
                   ),
                 ),
                 Center(
@@ -109,8 +103,9 @@ class _LoginPageState extends State<LoginPage> {
                                 ]).createShader(bounds);
                           },
                           child: GestureDetector(
-                            onTap: (){
-                              Navigator.pushReplacementNamed(context, '/ForgotPassword');
+                            onTap: () {
+                              Navigator.pushReplacementNamed(
+                                  context, '/ForgotPassword');
                             },
                             child: BinaryPoppinText(
                               text: "Forgot Password?",
@@ -126,13 +121,20 @@ class _LoginPageState extends State<LoginPage> {
                   ButtonFormat(
                       text: "Login",
                       buttonPressed: () async {
-                        await LoginAuth().loginAuth(emailController.text.trim(),
-                            passwordController.text.trim(), context);
+                        context.read<LoginBloc>().add(LoginEmailPasswordEvent(
+                            context: context,
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim()));
                       }),
                   const DivederOr(),
-                  GoogleButton(buttonPressed: () async {
-                    await LoginAuth().firebaseGoogleSignIn(context);
-                  }),
+                  BlocConsumer<LoginBloc, LoginState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      return GoogleButton(buttonPressed: () async {
+                        context.read<LoginBloc>().add(LoginGoogleEvent(context: context));
+                      });
+                    },
+                  ),
                   ButtonFont(
                       textOne: "Already have account?",
                       textTwo: "Sign Up",

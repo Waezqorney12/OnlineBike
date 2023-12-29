@@ -1,3 +1,4 @@
+import 'package:bike_online_application/bloc/auth/register/register_bloc.dart';
 import 'package:bike_online_application/common/component/Border_Form.dart';
 import 'package:bike_online_application/common/component/Button_Font.dart';
 import 'package:bike_online_application/common/component/Button_Google.dart';
@@ -8,8 +9,8 @@ import 'package:bike_online_application/common/component/Font/BinaryPoppinText.d
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/presentation/auth/login/login.dart';
-import 'package:bike_online_application/repository/firebase/auth/Register/RegisterAuth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 
@@ -26,7 +27,6 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController confirm = TextEditingController();
-
 
   @override
   void dispose() {
@@ -45,18 +45,20 @@ class _RegisterPageState extends State<RegisterPage> {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: Dimensions.widht15(context),),
+              horizontal: Dimensions.widht15(context),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BinaryPoppinText(
-                    text: "Get your account",
-                    fontSize: Dimensions.font28(context),
-                    weight: FontWeight.bold,
-                    isBlack: false,
-                  ),
+                  text: "Get your account",
+                  fontSize: Dimensions.font28(context),
+                  weight: FontWeight.bold,
+                  isBlack: false,
+                ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: Dimensions.height30(context)),
+                  padding:
+                      EdgeInsets.only(bottom: Dimensions.height30(context)),
                   child: Montserrat(
                     color: ColorClass.white.withOpacity(.6),
                     text: "Create yout account for free without tax",
@@ -68,28 +70,35 @@ class _RegisterPageState extends State<RegisterPage> {
                 formPassword(context, password),
                 formPasswords(context, confirm),
                 SizedBox(height: Dimensions.height50(context)),
-                ButtonFormat(
-                    text: "Register",
-                    buttonPressed: () async {
-                      await RegisterAuth().signUpWithEmailAndPassword(
-                          emailUser: email.text.trim(),
-                          password: password.text.trim(),
-                          confirm: confirm.text.trim(),
-                          context: context);
-                    }),
+                BlocConsumer<RegisterBloc, RegisterState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return ButtonFormat(
+                        text: "Register",
+                        buttonPressed: () async {
+                          context.read<RegisterBloc>().add(
+                              RegisterEmailSubmitEvent(
+                                  email: email.text.trim(),
+                                  password: password.text.trim(),
+                                  confirmation: confirm.text.trim(),
+                                  context: context));
+                        });
+                  },
+                ),
                 const DivederOr(),
-                GoogleButton(buttonPressed: () async {
-                  await RegisterAuth().signUpWithGoogle(context);
-                }),
+                BlocConsumer<RegisterBloc, RegisterState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return GoogleButton(buttonPressed: () async {
+                      context.read<RegisterBloc>().add(RegisterGoogleSubmitEvent(context: context));
+                    });
+                  },
+                ),
                 ButtonFont(
                     textOne: "Already have account?",
                     textTwo: "Sign In",
                     fontPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
-                          ));
+                      Navigator.pushReplacementNamed(context, '/Login');
                     })
               ],
             ),
@@ -177,7 +186,7 @@ class _RegisterPageState extends State<RegisterPage> {
       padding: EdgeInsets.only(
           top: Dimensions.height30(context),
           bottom: Dimensions.height15(context)),
-      child:  BinaryPoppinText(
+      child: BinaryPoppinText(
         text: text,
         fontSize: Dimensions.font16(context),
         weight: FontWeight.normal,
