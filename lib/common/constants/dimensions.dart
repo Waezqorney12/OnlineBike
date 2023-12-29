@@ -74,6 +74,9 @@ class Dimensions{
   static double height30(context){
     return screenHeight(context)/27.56;
   }
+  static double height40(context){
+    return screenHeight(context)/20.67;
+  }
   static double height45(context){
     return screenHeight(context)/18.38;
   }
@@ -146,6 +149,9 @@ class Dimensions{
   }
   static double widht30(context){
     return screenWidht(context)/13.09;
+  }
+  static double widht40(context){
+    return screenWidht(context)/9.81;
   }
   static double widht45(context){
     return screenWidht(context)/8.73;

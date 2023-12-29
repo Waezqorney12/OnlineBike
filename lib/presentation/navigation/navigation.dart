@@ -21,7 +21,6 @@ class _NavigationsState extends State<Navigations> {
     Dashboard(),
     MapPage(),
     TransactionPage(),
-    ProfilePage(),
     HistoryPage()
   ];
 
@@ -58,10 +57,6 @@ class _NavigationsState extends State<Navigations> {
                   image: ImageClass.carts60,
                   imageBox: ImageClass.carts,
                   label: "Cart"),
-              barItem(
-                  image: ImageClass.persons60,
-                  imageBox: ImageClass.persons,
-                  label: "Profile"),
               barItem(
                   image: ImageClass.documents60,
                   imageBox: ImageClass.documents,

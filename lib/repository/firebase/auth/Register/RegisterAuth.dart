@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 import 'package:bike_online_application/common/component/AlertDialog.dart';
-import 'package:bike_online_application/data/model/auth/profile.dart';
+import 'package:bike_online_application/model/auth/profile.dart';
 import 'package:bike_online_application/presentation/navigation/navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';

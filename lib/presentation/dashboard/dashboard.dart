@@ -1,5 +1,4 @@
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
-import 'package:bike_online_application/common/component/Font/InterText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
@@ -7,7 +6,6 @@ import 'package:bike_online_application/common/constants/image.dart';
 import 'package:bike_online_application/repository/firebase/auth/Register/RegisterAuth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -16,13 +14,18 @@ class Dashboard extends StatefulWidget {
   State<Dashboard> createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardState extends State<Dashboard>
+    with SingleTickerProviderStateMixin {
   final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: PoppinText(text: "Bicycle Store", fontSize: Dimensions.font28(context), weight: FontWeight.bold, color: Colors.white.withOpacity(.7)),
+          title: PoppinText(
+              text: "Bicycle Store",
+              fontSize: Dimensions.font28(context),
+              weight: FontWeight.bold,
+              color: Colors.white.withOpacity(.7)),
           bottom: PreferredSize(
               preferredSize: Size.fromHeight(Dimensions.height75(context)),
               child: Padding(
@@ -41,10 +44,10 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       const Expanded(
                         flex: 2,
-                        child:  Icon(
-                              Icons.bike_scooter,
-                              color: Colors.grey,
-                            ),
+                        child: Icon(
+                          Icons.bike_scooter,
+                          color: Colors.grey,
+                        ),
                       ),
                       Expanded(
                         flex: 7,
@@ -55,7 +58,8 @@ class _DashboardState extends State<Dashboard> {
                             color: Colors.grey),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Dimensions.widht10(context)),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Dimensions.widht10(context)),
                         child: const Icon(
                           Icons.search,
                           color: Colors.grey,
@@ -72,10 +76,10 @@ class _DashboardState extends State<Dashboard> {
               padding:
                   EdgeInsets.symmetric(horizontal: Dimensions.widht15(context)),
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.pushReplacementNamed(context, '/Profile'),
                   icon: CircleAvatar(
-                      backgroundColor: ColorClass.white,
-                      child: Image.asset(ImageClass.personsBlack))),
+                      backgroundColor: ColorClass.darkBlue,
+                      child: Icon(Icons.person, color: ColorClass.blueIcon,))),
             )
           ],
         ),
@@ -89,8 +93,8 @@ class _DashboardState extends State<Dashboard> {
             } else if (snapshot.hasError) {
               return Center(child: condition(context, text: "Snapshot Error"));
             } else if (snapshot.hasData) {
-              final data = snapshot.data;
-              return SingleChildScrollView(
+              //final data = snapshot.data;
+              return const SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [],

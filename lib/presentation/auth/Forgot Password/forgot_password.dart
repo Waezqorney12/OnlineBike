@@ -1,4 +1,5 @@
 import 'package:bike_online_application/bloc/auth/forgotPassword/forgot_password_bloc.dart';
+import 'package:bike_online_application/common/component/AppBar.dart';
 import 'package:bike_online_application/common/component/Border_Form.dart';
 import 'package:bike_online_application/common/component/Button_Login_Register.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
@@ -28,34 +29,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorClass.navDown,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(Dimensions.height20(context)),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: Dimensions.height10(context),
-                  horizontal: Dimensions.widht10(context)),
-              child: GestureDetector(
-                onTap: () => Navigator.pushReplacementNamed(context, '/Login'),
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: ColorClass.getBlueGradient()),
-                  child: const Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: const MyAppBar(path: '/Login', text: "Forgot Password"),
       backgroundColor: ColorClass.background,
       body: SingleChildScrollView(
         child: Padding(

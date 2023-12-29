@@ -1,10 +1,11 @@
+import 'package:bike_online_application/common/component/AppBar.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/component/Font/HiddenText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/common/constants/image.dart';
-import 'package:bike_online_application/data/model/auth/profile.dart';
+import 'package:bike_online_application/model/auth/profile.dart';
 import 'package:bike_online_application/repository/firebase/auth/Register/RegisterAuth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const MyAppBar(path: '/Navigation', text: 'My Profile'),
       backgroundColor: ColorClass.background,
       body: FutureBuilder<Profile>(
           future: RegisterAuth().getUserProfile(
@@ -81,16 +83,19 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: EdgeInsets.symmetric(
                         horizontal: Dimensions.widht25(context),
                         vertical: Dimensions.height10(context)),
-                    child: BinaryPoppinText(
-                        isBlack: false,
-                        text: "Personal Information",
+                    child: PoppinText(
+                        color: ColorClass.white,
+                        text: "Account",
                         fontSize: Dimensions.font16(context),
                         weight: FontWeight.w600),
                   ),
-                  boxInformation(
-                      emailInformation: data.email.toString(),
-                      alamatInformation: data.alamat.toString(),
-                      nomorInformation: data.nomorTelepon.toString()),
+                  account(context,image: ImageClass.setting,path: '/Dashboard',text: "Costum Account"),
+                  account(context,image: ImageClass.history,path: '/Dashboard',text: 'Order History'),
+                  account(context,image: ImageClass.promo,path: '/Dashboard',text: 'Promos'),
+                  account(context,image: ImageClass.card,path: '/Dashboard',text: 'Payment Method'),
+                  account(context,image: ImageClass.information,path: '/Dashboard', text: "Help"),
+                  account(context,image: ImageClass.globe,path: '/Dashboard', text: "Change Language"),
+
                 ],
               );
             } else {
@@ -100,6 +105,32 @@ class _ProfilePageState extends State<ProfilePage> {
             }
           }),
     );
+  }
+
+  Widget account(BuildContext context, {required String text, required String image,required String path}) {
+    return InkWell(
+                  highlightColor: ColorClass.white.withOpacity(.7),
+                  splashColor: ColorClass.darkBlue.withOpacity(.4),
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed(path);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: Dimensions.height5(context)),
+                    child: ListTile(
+                      leading: Container(
+                        height: Dimensions.height45(context),
+                        width: Dimensions.widht45(context),
+                        decoration: BoxDecoration(
+                          color: ColorClass.backgroundIcon,
+                          shape: BoxShape.circle,
+                          image: DecorationImage(image: AssetImage(image))
+                        ),
+                      ),
+                      title: PoppinText(text: text, fontSize: 14, weight: FontWeight.w500,color: ColorClass.white,),
+                      trailing: Icon(Icons.arrow_forward_ios_rounded,color: ColorClass.white,),
+                    ),
+                  ),
+                );
   }
 
   Container profilePicture(BuildContext context,
@@ -190,7 +221,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Padding textData(String text, BuildContext context,
       {required bool isTrue, bool isDimensions = true, bool isSize = true}) {
     final Color isSwitching =
-        isTrue == true ? Colors.white : Colors.white.withOpacity(.6);
+        isTrue == true ? ColorClass.white2 : ColorClass.blueStatus;
 
     return Padding(
       padding: EdgeInsets.only(
