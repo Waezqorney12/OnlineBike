@@ -79,7 +79,7 @@ class _DashboardState extends State<Dashboard>
                   onPressed: () => Navigator.pushReplacementNamed(context, '/Profile'),
                   icon: CircleAvatar(
                       backgroundColor: ColorClass.darkBlue,
-                      child: Icon(Icons.person, color: ColorClass.blueIcon,))),
+                      child: const Icon(Icons.person, color: Colors.white,))),
             )
           ],
         ),

@@ -1,4 +1,4 @@
-import 'package:bike_online_application/bloc/auth/login/login_bloc.dart';
+import 'package:bike_online_application/bloc/auth/login/auth_bloc.dart';
 import 'package:bike_online_application/common/component/Font/MontserratText.dart';
 import 'package:bike_online_application/common/component/Border_Form.dart';
 import 'package:bike_online_application/common/component/Button_Font.dart';
@@ -47,8 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Container(
                     height: Dimensions.height200(context),
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: ColorClass.lightBlue.withOpacity(.9)),
+                    child: Image.asset(ImageClass.imageLogin, fit: BoxFit.cover,),
                   ),
                 ),
                 Center(
@@ -121,17 +120,17 @@ class _LoginPageState extends State<LoginPage> {
                   ButtonFormat(
                       text: "Login",
                       buttonPressed: () async {
-                        context.read<LoginBloc>().add(LoginEmailPasswordEvent(
+                        context.read<AuthBloc>().add(AuthEmailPasswordEvent(
                             context: context,
                             email: emailController.text.trim(),
                             password: passwordController.text.trim()));
                       }),
                   const DivederOr(),
-                  BlocConsumer<LoginBloc, LoginState>(
+                  BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {},
                     builder: (context, state) {
                       return GoogleButton(buttonPressed: () async {
-                        context.read<LoginBloc>().add(LoginGoogleEvent(context: context));
+                        context.read<AuthBloc>().add(AuthGoogleEvent(context: context));
                       });
                     },
                   ),

@@ -44,59 +44,62 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             } else if (snapshot.hasData) {
               final data = snapshot.data;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: Dimensions.height180(context),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(ImageClass.backgroundDefault),
-                            fit: BoxFit.fill)),
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Positioned(
-                            bottom: Dimensions.minHeight70(context),
-                            left: Dimensions.widht20(context),
-                            child: data?.gambarProfile.toString() ==
-                                    "Udentified picture"
-                                ? profilePicture(context,
-                                    image: const DecorationImage(
-                                        image: AssetImage(
-                                            ImageClass.defaultPictureProfile)))
-                                : profilePicture(context,
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: NetworkImage(
-                                            data!.gambarProfile.toString())))),
-                      ],
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: Dimensions.height180(context),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(ImageClass.backgroundDefault),
+                              fit: BoxFit.fill)),
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Positioned(
+                              bottom: Dimensions.minHeight70(context),
+                              left: Dimensions.widht20(context),
+                              child: data?.gambarProfile.toString() ==
+                                      "Udentified picture"
+                                  ? profilePicture(context,
+                                      image: const DecorationImage(
+                                          image: AssetImage(
+                                              ImageClass.defaultPictureProfile)))
+                                  : profilePicture(context,
+                                      image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage(
+                                              data!.gambarProfile.toString())))),
+                        ],
+                      ),
                     ),
-                  ),
-                  textData(data!.nama.toString(), context,
-                      isTrue: true, isDimensions: false, isSize: false),
-                  textData(data.status.toString(), context,
-                      isTrue: false, isSize: false),
-                  SizedBox(height: Dimensions.height20(context)),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Dimensions.widht25(context),
-                        vertical: Dimensions.height10(context)),
-                    child: PoppinText(
-                        color: ColorClass.white,
-                        text: "Account",
-                        fontSize: Dimensions.font16(context),
-                        weight: FontWeight.w600),
-                  ),
-                  account(context,image: ImageClass.setting,path: '/Dashboard',text: "Costum Account"),
-                  account(context,image: ImageClass.history,path: '/Dashboard',text: 'Order History'),
-                  account(context,image: ImageClass.promo,path: '/Dashboard',text: 'Promos'),
-                  account(context,image: ImageClass.card,path: '/Dashboard',text: 'Payment Method'),
-                  account(context,image: ImageClass.information,path: '/Dashboard', text: "Help"),
-                  account(context,image: ImageClass.globe,path: '/Dashboard', text: "Change Language"),
-
-                ],
+                    textData(data!.nama.toString(), context,
+                        isTrue: true, isDimensions: false, isSize: false),
+                    textData(data.status.toString(), context,
+                        isTrue: false, isSize: false),
+                    SizedBox(height: Dimensions.height20(context)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Dimensions.widht25(context),
+                          vertical: Dimensions.height10(context)),
+                      child: PoppinText(
+                          color: ColorClass.white,
+                          text: "Account",
+                          fontSize: Dimensions.font16(context),
+                          weight: FontWeight.w600),
+                    ),
+                    account(context,image: ImageClass.setting,path: '/Dashboard',text: "Costum Account"),
+                    account(context,image: ImageClass.history,path: '/Dashboard',text: 'Order History'),
+                    account(context,image: ImageClass.promo,path: '/Dashboard',text: 'Promos'),
+                    account(context,image: ImageClass.card,path: '/Dashboard',text: 'Payment Method'),
+                    account(context,image: ImageClass.information,path: '/Dashboard', text: "Help"),
+                    account(context,image: ImageClass.globe,path: '/Dashboard', text: "Change Language"),
+                    account(context,image: ImageClass.linked,path: '/Manage', text: "Manage Account"),
+              
+                  ],
+                ),
               );
             } else {
               return const Center(
@@ -127,7 +130,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       title: PoppinText(text: text, fontSize: 14, weight: FontWeight.w500,color: ColorClass.white,),
-                      trailing: Icon(Icons.arrow_forward_ios_rounded,color: ColorClass.white,),
+                      trailing: Icon(size:Dimensions.font20(context),Icons.arrow_forward_ios_rounded,color: ColorClass.white,),
                     ),
                   ),
                 );
@@ -221,7 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Padding textData(String text, BuildContext context,
       {required bool isTrue, bool isDimensions = true, bool isSize = true}) {
     final Color isSwitching =
-        isTrue == true ? ColorClass.white2 : ColorClass.blueStatus;
+        isTrue == true ? ColorClass.white : ColorClass.blueStatus;
 
     return Padding(
       padding: EdgeInsets.only(

@@ -1,13 +1,14 @@
 // ignore_for_file: unused_import
 
 import 'package:bike_online_application/bloc/auth/forgotPassword/forgot_password_bloc.dart';
-import 'package:bike_online_application/bloc/auth/login/login_bloc.dart';
+import 'package:bike_online_application/bloc/auth/login/auth_bloc.dart';
 import 'package:bike_online_application/bloc/auth/register/register_bloc.dart';
 import 'package:bike_online_application/common/constants/image.dart';
 import 'package:bike_online_application/presentation/auth/Forgot%20Password/forgot_password.dart';
 import 'package:bike_online_application/presentation/auth/login/login.dart';
 import 'package:bike_online_application/presentation/auth/register/register.dart';
 import 'package:bike_online_application/presentation/navigation/navigation.dart';
+import 'package:bike_online_application/presentation/profile/detail/manage.dart';
 import 'package:bike_online_application/presentation/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => LoginBloc()),
+        BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => ForgotPasswordBloc()),
         BlocProvider(create: (context) => RegisterBloc()),
       ],
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/ForgotPassword': (context) => const ForgotPasswordPage(),
           '/Navigation': (context) => const Navigations(),
           '/Profile':(context) => const ProfilePage(),
+          '/Manage':(context) => const ManageAccountPage(), 
         },
       ),
     );

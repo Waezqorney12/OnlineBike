@@ -8,7 +8,6 @@ import 'package:bike_online_application/common/component/Font/MontserratText.dar
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
-import 'package:bike_online_application/presentation/auth/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';

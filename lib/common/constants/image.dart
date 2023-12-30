@@ -16,6 +16,9 @@ class ImageClass{
   static const String promo = "assets/png/color/promo_fill.png";
   static const String chat = "assets/png/color/chat_fill.png";
   static const String setting = "assets/png/color/setting_fill.png";
+  static const String linked = "assets/png/color/atur_fill.png";
+  static const String trash = "assets/png/color/trash_fill.png";
+  static const String logout = "assets/png/color/exit_fill.png";
 
   //100%
   static const String bicycles = "assets/png/color/bicycle.png";

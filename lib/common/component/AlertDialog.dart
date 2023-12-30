@@ -27,9 +27,9 @@ class ShowDialog {
                     shape: BoxShape.circle,
                     color: ColorClass.yellowCustom,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.warning,
-                    color: ColorClass.white,
+                    color: Colors.white,
                     size: 70,
                   ),
                 )),
