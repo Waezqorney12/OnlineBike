@@ -19,9 +19,3 @@ final class SignOutAccountEvent extends AuthEvent{
   final BuildContext context;
   SignOutAccountEvent({required this.context});
 }
-
-final class DeleteAccountEvent extends AuthEvent{
-  final BuildContext context;
-  final String email;
-  DeleteAccountEvent({required this.context,required this.email});
-}

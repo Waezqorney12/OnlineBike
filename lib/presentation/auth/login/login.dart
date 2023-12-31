@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 ClipPath(
                   clipper: MyCustomClipper(),
-                  child: Container(
+                  child: SizedBox(
                     height: Dimensions.height200(context),
                     width: MediaQuery.of(context).size.width,
                     child: Image.asset(ImageClass.imageLogin, fit: BoxFit.cover,),

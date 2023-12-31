@@ -1,4 +1,5 @@
 import 'package:bike_online_application/bloc/auth/login/auth_bloc.dart';
+import 'package:bike_online_application/bloc/profile/profile_bloc.dart';
 import 'package:bike_online_application/common/component/AppBar.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
@@ -43,12 +44,12 @@ class ManageAccountPageState extends State<ManageAccountPage> {
                   );
                 },
               ),
-              BlocConsumer<AuthBloc, AuthState>(
+              BlocConsumer<ProfileBloc, ProfileState>(
                 listener: (context, state) {},
                 builder: (context, state) {
                   return InkWell(
-                    onTap: () async => context.read<AuthBloc>().add(
-                        DeleteAccountEvent(
+                    onTap: () async => context.read<ProfileBloc>().add(
+                        DeleteProfileEvent(
                             context: context, email: user!.email.toString())),
                     child: menu(context,
                         image: ImageClass.trash,
@@ -81,13 +82,13 @@ class ManageAccountPageState extends State<ManageAccountPage> {
         ),
         title: BinaryPoppinText(
           text: title,
-          fontSize: 14,
+          fontSize: Dimensions.font14(context),
           weight: FontWeight.bold,
           isBlack: false,
         ),
         subtitle: PoppinText(
           text: subtitle,
-          fontSize: 14,
+          fontSize: Dimensions.font14(context),
           weight: FontWeight.w500,
           color: ColorClass.white,
         ),

@@ -1,6 +1,5 @@
 import 'package:bike_online_application/common/component/AppBar.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
-import 'package:bike_online_application/common/component/Font/HiddenText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
@@ -90,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           fontSize: Dimensions.font16(context),
                           weight: FontWeight.w600),
                     ),
-                    account(context,image: ImageClass.setting,path: '/Dashboard',text: "Costum Account"),
+                    account(context,image: ImageClass.setting,path: '/Costum',text: "Costum Account"),
                     account(context,image: ImageClass.history,path: '/Dashboard',text: 'Order History'),
                     account(context,image: ImageClass.promo,path: '/Dashboard',text: 'Promos'),
                     account(context,image: ImageClass.card,path: '/Dashboard',text: 'Payment Method'),
@@ -151,75 +150,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Padding boxInformation(
-      {required String emailInformation,
-      required String alamatInformation,
-      required String nomorInformation}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimensions.widht20(context)),
-      child: Container(
-        height: Dimensions.height185(context),
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.white.withOpacity(0.1)),
-            borderRadius: BorderRadius.circular(10),
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [ColorClass.boxUp, ColorClass.boxDown])),
-        child: Column(
-          children: [
-            detailInformation(
-                information: emailInformation,
-                icons: Icons.email_outlined,
-                subText: "Email Address"),
-            detailInformation(
-                information: alamatInformation,
-                icons: Icons.map,
-                subText: "Adress"),
-            detailInformation(
-                information: nomorInformation,
-                icons: Icons.phone_in_talk_outlined,
-                subText: "Phone Number"),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Padding detailInformation(
-      {required String information,
-      required String subText,
-      required IconData icons}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: Dimensions.height15(context)),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Icon(
-              icons,
-              color: Colors.white,
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: SizedBox(
-              width: Dimensions.widht145(context),
-              child: BinaryPoppinText(
-                text: subText,
-                fontSize: Dimensions.font12(context),
-                weight: FontWeight.w600,
-                isBlack: false,
-              ),
-            ),
-          ),
-          Padding(
-              padding: EdgeInsets.only(right: Dimensions.widht15(context)),
-              child: HiddenText(context: context, text: information))
-        ],
-      ),
-    );
-  }
 
   Padding textData(String text, BuildContext context,
       {required bool isTrue, bool isDimensions = true, bool isSize = true}) {

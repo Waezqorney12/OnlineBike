@@ -3,11 +3,16 @@
 import 'package:bike_online_application/bloc/auth/forgotPassword/forgot_password_bloc.dart';
 import 'package:bike_online_application/bloc/auth/login/auth_bloc.dart';
 import 'package:bike_online_application/bloc/auth/register/register_bloc.dart';
+import 'package:bike_online_application/bloc/profile/profile_bloc.dart';
 import 'package:bike_online_application/common/constants/image.dart';
 import 'package:bike_online_application/presentation/auth/Forgot%20Password/forgot_password.dart';
 import 'package:bike_online_application/presentation/auth/login/login.dart';
 import 'package:bike_online_application/presentation/auth/register/register.dart';
 import 'package:bike_online_application/presentation/navigation/navigation.dart';
+import 'package:bike_online_application/presentation/profile/detail/costum.dart';
+import 'package:bike_online_application/presentation/profile/detail/costum/address.dart';
+import 'package:bike_online_application/presentation/profile/detail/costum/name.dart';
+import 'package:bike_online_application/presentation/profile/detail/costum/phone.dart';
 import 'package:bike_online_application/presentation/profile/detail/manage.dart';
 import 'package:bike_online_application/presentation/profile/profile.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +38,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => ForgotPasswordBloc()),
         BlocProvider(create: (context) => RegisterBloc()),
+        BlocProvider(create: (context) => ProfileBloc())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -44,6 +50,10 @@ class MyApp extends StatelessWidget {
           '/Navigation': (context) => const Navigations(),
           '/Profile':(context) => const ProfilePage(),
           '/Manage':(context) => const ManageAccountPage(), 
+          '/Costum':(context) => const CostumAccountPage(),
+          '/Phone':(context) => const PhonePage(),
+          '/Name' : (context) => const NamePage(),
+          '/Address' : (context) => const AddressPage()
         },
       ),
     );

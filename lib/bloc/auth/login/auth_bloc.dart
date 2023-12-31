@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:bike_online_application/repository/firebase/auth/Login/LoginAuth.dart';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 part 'auth_event.dart';
@@ -30,12 +31,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthError(errorMessage: e.toString()));
       }
     });
-    on<DeleteAccountEvent>((event,emit) async {
-      try {
-        await _login.deleteAccount(event.context, event.email);
-      } catch (e) {
-        emit(AuthError(errorMessage: e.toString()));
-      }
-    });
+    
   }
 }
