@@ -19,6 +19,7 @@ class ImageClass{
   static const String linked = "assets/png/color/atur_fill.png";
   static const String trash = "assets/png/color/trash_fill.png";
   static const String logout = "assets/png/color/exit_fill.png";
+  static const String splash = "assets/png/color/splash.png";
 
   //100%
   static const String bicycles = "assets/png/color/bicycle.png";

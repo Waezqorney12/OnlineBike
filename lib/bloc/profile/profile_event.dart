@@ -44,3 +44,12 @@ final class ChangeNameEvent extends ProfileEvent {
   @override
   List<Object?> get props => [email, nama, context];
 }
+
+final class LoadProfile extends ProfileEvent{
+  final String email;
+  LoadProfile({required this.email});
+  
+  @override
+  List<Object?> get props => [email];
+}
+

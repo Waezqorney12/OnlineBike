@@ -1,4 +1,5 @@
-import 'package:bike_online_application/bloc/dashboard/dashboard_bloc.dart';
+
+import 'package:bike_online_application/bloc/profile/profile_bloc.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
@@ -28,11 +29,11 @@ class _DashboardState extends State<Dashboard>
   void initState() {
     super.initState();
     context
-        .read<DashboardBloc>()
+        .read<ProfileBloc>()
         .add(LoadProfile(email: user?.email.toString() ?? ""));
 
     animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
     animation =
         Tween<double>(begin: 0, end: 2 * pi).animate(animationController);
     animationController.repeat();
@@ -110,7 +111,7 @@ class _DashboardState extends State<Dashboard>
             Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: Dimensions.widht15(context)),
-              child: BlocConsumer<DashboardBloc, DashboardState>(
+              child: BlocConsumer<ProfileBloc, ProfileState>(
                 listener: (context, state) {},
                 builder: (context, state) {
                   if (state is ProfileInitial) {
@@ -127,7 +128,7 @@ class _DashboardState extends State<Dashboard>
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                  image: imageUrl.contains(" ")
+                                  image: imageUrl.contains("Udentified picture")
                                       // ignore: unnecessary_cast
                                       ? const AssetImage(ImageClass.defaultPictureProfile) as ImageProvider<Object>
                                       // ignore: unnecessary_cast

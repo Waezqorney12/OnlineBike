@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 import 'package:bike_online_application/common/component/AlertDialog.dart';
 import 'package:bike_online_application/model/auth/profile.dart';
-import 'package:bike_online_application/presentation/navigation/navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,13 +15,7 @@ class RegisterAuth {
   User? _user;
   final _db = FirebaseFirestore.instance;
 
-  Future<Profile> getUserProfile(
-      {required String email}) async {
-    final snapshots =
-        await _db.collection('users').where('email', isEqualTo: email).get();
-    final data = snapshots.docs.map((e) => Profile.fromFirestore(e)).single;
-    return data;
-  }
+  
 
   Profile userDetails(
       {required String email,

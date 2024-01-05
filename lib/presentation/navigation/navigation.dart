@@ -3,7 +3,6 @@ import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/common/constants/image.dart';
 import 'package:bike_online_application/presentation/Map/map.dart';
 import 'package:bike_online_application/presentation/dashboard/dashboard.dart';
-import 'package:bike_online_application/presentation/profile/profile.dart';
 import 'package:bike_online_application/presentation/transaction/history.dart';
 import 'package:bike_online_application/presentation/transaction/transaction.dart';
 import 'package:flutter/material.dart';

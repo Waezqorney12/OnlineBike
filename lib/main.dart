@@ -16,6 +16,7 @@ import 'package:bike_online_application/presentation/profile/detail/costum/name.
 import 'package:bike_online_application/presentation/profile/detail/costum/phone.dart';
 import 'package:bike_online_application/presentation/profile/detail/manage.dart';
 import 'package:bike_online_application/presentation/profile/profile.dart';
+import 'package:bike_online_application/presentation/splash/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => ForgotPasswordBloc()),
         BlocProvider(create: (context) => RegisterBloc()),
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const LoginPage(),
+        home: const SplashScreenPage(),
         routes: <String, WidgetBuilder>{
           '/Register': (context) => const RegisterPage(),
           '/Login': (context) => const LoginPage(),

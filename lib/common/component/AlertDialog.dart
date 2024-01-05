@@ -121,9 +121,9 @@ class ShowDialog {
                     shape: BoxShape.circle,
                     color: Colors.red,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.clear,
-                    color: ColorClass.white,
+                    color: Colors.white,
                     size: 70,
                   ),
                 )),
@@ -215,9 +215,9 @@ class ShowDialog {
                     shape: BoxShape.circle,
                     color: Colors.green,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.check,
-                    color: ColorClass.white,
+                    color: Colors.white,
                     size: 70,
                   ),
                 )),

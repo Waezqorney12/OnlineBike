@@ -1,13 +1,13 @@
+import 'package:bike_online_application/bloc/profile/profile_bloc.dart';
 import 'package:bike_online_application/common/component/AppBar.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/common/constants/image.dart';
-import 'package:bike_online_application/model/auth/profile.dart';
-import 'package:bike_online_application/repository/firebase/auth/Register/RegisterAuth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,31 +17,34 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final user = FirebaseAuth.instance.currentUser;
+  final _user = FirebaseAuth.instance.currentUser;
+
+  final ProfileBloc profileBloc = ProfileBloc();
+  @override
+  void initState() {
+    context
+        .read<ProfileBloc>()
+        .add(LoadProfile(email: _user?.email.toString() ?? ""));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    profileBloc.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(path: '/Navigation', text: 'My Profile'),
-      backgroundColor: ColorClass.background,
-      body: FutureBuilder<Profile>(
-          future: RegisterAuth().getUserProfile(
-              email: user?.email.toString() ?? "Udentified email",),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: BinaryPoppinText(
-                  text: "Snapshot Error",
-                  fontSize: Dimensions.font14(context),
-                  weight: FontWeight.bold,
-                  isBlack: false,
-                ),
-              );
-            } else if (snapshot.hasData) {
-              final data = snapshot.data;
+        appBar: const MyAppBar(path: '/Navigation', text: 'My Profile'),
+        backgroundColor: ColorClass.background,
+        body: BlocConsumer<ProfileBloc, ProfileState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is ProfileInitial) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is ProfileLoaded) {
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,23 +62,24 @@ class _ProfilePageState extends State<ProfilePage> {
                           Positioned(
                               bottom: Dimensions.minHeight70(context),
                               left: Dimensions.widht20(context),
-                              child: data?.gambarProfile.toString() ==
+                              child: state.profile.gambarProfile.toString() ==
                                       "Udentified picture"
                                   ? profilePicture(context,
                                       image: const DecorationImage(
-                                          image: AssetImage(
-                                              ImageClass.defaultPictureProfile)))
+                                          image: AssetImage(ImageClass
+                                              .defaultPictureProfile)))
                                   : profilePicture(context,
                                       image: DecorationImage(
                                           fit: BoxFit.fill,
-                                          image: NetworkImage(
-                                              data!.gambarProfile.toString())))),
+                                          image: NetworkImage(state
+                                              .profile.gambarProfile
+                                              .toString())))),
                         ],
                       ),
                     ),
-                    textData(data!.nama.toString(), context,
+                    textData(state.profile.nama.toString(), context,
                         isTrue: true, isDimensions: false, isSize: false),
-                    textData(data.status.toString(), context,
+                    textData(state.profile.status.toString(), context,
                         isTrue: false, isSize: false),
                     SizedBox(height: Dimensions.height20(context)),
                     Padding(
@@ -88,50 +92,85 @@ class _ProfilePageState extends State<ProfilePage> {
                           fontSize: Dimensions.font16(context),
                           weight: FontWeight.w600),
                     ),
-                    account(context,image: ImageClass.setting,path: '/Costum',text: "Costum Account"),
-                    account(context,image: ImageClass.history,path: '/Dashboard',text: 'Order History'),
-                    account(context,image: ImageClass.promo,path: '/Dashboard',text: 'Promos'),
-                    account(context,image: ImageClass.card,path: '/Dashboard',text: 'Payment Method'),
-                    account(context,image: ImageClass.information,path: '/Dashboard', text: "Help"),
-                    account(context,image: ImageClass.globe,path: '/Dashboard', text: "Change Language"),
-                    account(context,image: ImageClass.linked,path: '/Manage', text: "Manage Account"),
-              
+                    account(context,
+                        image: ImageClass.setting,
+                        path: '/Costum',
+                        text: "Costum Account"),
+                    account(context,
+                        image: ImageClass.history,
+                        path: '/Dashboard',
+                        text: 'Order History'),
+                    account(context,
+                        image: ImageClass.promo,
+                        path: '/Dashboard',
+                        text: 'Promos'),
+                    account(context,
+                        image: ImageClass.card,
+                        path: '/Dashboard',
+                        text: 'Payment Method'),
+                    account(context,
+                        image: ImageClass.information,
+                        path: '/Dashboard',
+                        text: "Help"),
+                    account(context,
+                        image: ImageClass.globe,
+                        path: '/Dashboard',
+                        text: "Change Language"),
+                    account(context,
+                        image: ImageClass.linked,
+                        path: '/Manage',
+                        text: "Manage Account"),
                   ],
                 ),
               );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
+            } else if (state is ProfileError) {
+              return Center(
+                child: BinaryPoppinText(
+                    text: state.errorMessage,
+                    fontSize: Dimensions.font14(context),
+                    weight: FontWeight.bold,
+                    isBlack: false),
               );
+            } else{
+              return const Center(child: CircularProgressIndicator());
             }
-          }),
-    );
+          },
+        ));
   }
 
-  Widget account(BuildContext context, {required String text, required String image,required String path}) {
+  Widget account(BuildContext context,
+      {required String text, required String image, required String path}) {
     return InkWell(
-                  highlightColor: ColorClass.white.withOpacity(.7),
-                  splashColor: ColorClass.darkBlue.withOpacity(.4),
-                  onTap: () {
-                    Navigator.of(context).pushReplacementNamed(path);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: Dimensions.height5(context)),
-                    child: ListTile(
-                      leading: Container(
-                        height: Dimensions.height45(context),
-                        width: Dimensions.widht45(context),
-                        decoration: BoxDecoration(
-                          color: ColorClass.backgroundIcon,
-                          shape: BoxShape.circle,
-                          image: DecorationImage(image: AssetImage(image))
-                        ),
-                      ),
-                      title: PoppinText(text: text, fontSize: 14, weight: FontWeight.w500,color: ColorClass.white,),
-                      trailing: Icon(size:Dimensions.font20(context),Icons.arrow_forward_ios_rounded,color: ColorClass.white,),
-                    ),
-                  ),
-                );
+      highlightColor: ColorClass.white.withOpacity(.7),
+      splashColor: ColorClass.darkBlue.withOpacity(.4),
+      onTap: () {
+        Navigator.of(context).pushReplacementNamed(path);
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: Dimensions.height5(context)),
+        child: ListTile(
+          leading: Container(
+            height: Dimensions.height45(context),
+            width: Dimensions.widht45(context),
+            decoration: BoxDecoration(
+                color: ColorClass.backgroundIcon,
+                shape: BoxShape.circle,
+                image: DecorationImage(image: AssetImage(image))),
+          ),
+          title: PoppinText(
+            text: text,
+            fontSize: 14,
+            weight: FontWeight.w500,
+            color: ColorClass.white,
+          ),
+          trailing: Icon(
+            size: Dimensions.font20(context),
+            Icons.arrow_forward_ios_rounded,
+            color: ColorClass.white,
+          ),
+        ),
+      ),
+    );
   }
 
   Container profilePicture(BuildContext context,
@@ -148,7 +187,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ], shape: BoxShape.circle, image: image),
     );
   }
-
 
   Padding textData(String text, BuildContext context,
       {required bool isTrue, bool isDimensions = true, bool isSize = true}) {

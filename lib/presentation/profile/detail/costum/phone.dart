@@ -1,4 +1,5 @@
 import 'package:bike_online_application/bloc/profile/profile_bloc.dart';
+import 'package:bike_online_application/common/component/AlertDialog.dart';
 import 'package:bike_online_application/common/component/Button_Login_Register.dart';
 import 'package:bike_online_application/common/component/pages/specifiedPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,3 +45,8 @@ class PhonePageState extends State<PhonePage> {
         hintText: 'Your phone number');
   }
 }
+
+
+
+  
+
