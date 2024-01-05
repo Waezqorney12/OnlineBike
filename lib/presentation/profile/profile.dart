@@ -25,8 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: ColorClass.background,
       body: FutureBuilder<Profile>(
           future: RegisterAuth().getUserProfile(
-              email: user?.email.toString() ?? "Udentified email",
-              context: context),
+              email: user?.email.toString() ?? "Udentified email",),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(

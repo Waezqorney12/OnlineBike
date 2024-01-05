@@ -17,7 +17,7 @@ class RegisterAuth {
   final _db = FirebaseFirestore.instance;
 
   Future<Profile> getUserProfile(
-      {required String email, required BuildContext context}) async {
+      {required String email}) async {
     final snapshots =
         await _db.collection('users').where('email', isEqualTo: email).get();
     final data = snapshots.docs.map((e) => Profile.fromFirestore(e)).single;

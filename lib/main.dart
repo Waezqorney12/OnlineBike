@@ -3,6 +3,7 @@
 import 'package:bike_online_application/bloc/auth/forgotPassword/forgot_password_bloc.dart';
 import 'package:bike_online_application/bloc/auth/login/auth_bloc.dart';
 import 'package:bike_online_application/bloc/auth/register/register_bloc.dart';
+import 'package:bike_online_application/bloc/dashboard/dashboard_bloc.dart';
 import 'package:bike_online_application/bloc/profile/profile_bloc.dart';
 import 'package:bike_online_application/common/constants/image.dart';
 import 'package:bike_online_application/presentation/auth/Forgot%20Password/forgot_password.dart';
@@ -35,10 +36,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => ForgotPasswordBloc()),
         BlocProvider(create: (context) => RegisterBloc()),
-        BlocProvider(create: (context) => ProfileBloc())
+        BlocProvider(create: (context) => ProfileBloc()),
+        BlocProvider(create: (context) => DashboardBloc(),)
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

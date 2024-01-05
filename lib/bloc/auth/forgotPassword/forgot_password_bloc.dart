@@ -1,6 +1,7 @@
 import 'package:bike_online_application/common/component/AlertDialog.dart';
 import 'package:bike_online_application/repository/firebase/auth/Forgot%20Password/ForgotPasswordAuth.dart';
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 part 'forgot_password_event.dart';

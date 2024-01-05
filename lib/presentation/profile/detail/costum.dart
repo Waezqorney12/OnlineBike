@@ -30,7 +30,7 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
       backgroundColor: ColorClass.background,
       body: FutureBuilder<Profile>(
           future: RegisterAuth()
-              .getUserProfile(email: _user!.email.toString(), context: context),
+              .getUserProfile(email: _user!.email.toString(),),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());

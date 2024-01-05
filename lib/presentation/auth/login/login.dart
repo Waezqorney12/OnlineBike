@@ -25,6 +25,8 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  bool isClick = true;
+
   @override
   void dispose() {
     super.dispose();
@@ -47,7 +49,10 @@ class _LoginPageState extends State<LoginPage> {
                   child: SizedBox(
                     height: Dimensions.height200(context),
                     width: MediaQuery.of(context).size.width,
-                    child: Image.asset(ImageClass.imageLogin, fit: BoxFit.cover,),
+                    child: Image.asset(
+                      ImageClass.imageLogin,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Center(
@@ -57,8 +62,8 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       height: Dimensions.height100(context),
                       width: Dimensions.widht100(context),
-                      decoration: BoxDecoration(
-                          color: ColorClass.white, shape: BoxShape.circle),
+                      decoration: const BoxDecoration(
+                          color: Colors.white, shape: BoxShape.circle),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -76,12 +81,43 @@ class _LoginPageState extends State<LoginPage> {
               padding:
                   EdgeInsets.symmetric(horizontal: Dimensions.widht15(context)),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     height: Dimensions.height20(context),
                   ),
                   formEmail(context, emailController),
-                  formPassword(context, passwordController),
+                  jarak(context, "Password"),
+                  BorderForm(
+                    widget: TextFormField(
+                      obscureText: isClick,
+                      controller: passwordController,
+                      style: GoogleFonts.poppins(
+                          color: ColorClass.white,
+                          fontSize: Dimensions.font16(context)),
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                isClick = !isClick;
+                              });
+                            },
+                            icon: isClick == true
+                                ? Icon(
+                                    Icons.remove_red_eye_rounded,
+                                    color: ColorClass.white,
+                                  )
+                                : Icon(Icons.remove_red_eye_rounded,color: ColorClass.lightBlue,)),
+                        hintText: "Password",
+                        hintStyle: GoogleFonts.poppins(
+                            color: ColorClass.white.withOpacity(.6)),
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: Dimensions.widht10(context),
+                            vertical: Dimensions.height10(context)),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
@@ -130,7 +166,9 @@ class _LoginPageState extends State<LoginPage> {
                     listener: (context, state) {},
                     builder: (context, state) {
                       return GoogleButton(buttonPressed: () async {
-                        context.read<AuthBloc>().add(AuthGoogleEvent(context: context));
+                        context
+                            .read<AuthBloc>()
+                            .add(AuthGoogleEvent(context: context));
                       });
                     },
                   ),
@@ -203,11 +241,13 @@ class _LoginPageState extends State<LoginPage> {
             style: GoogleFonts.poppins(
                 color: ColorClass.white, fontSize: Dimensions.font16(context)),
             decoration: InputDecoration(
+              suffixIcon: Icon(Icons.remove_red_eye_rounded),
               hintText: "Password",
               hintStyle:
                   GoogleFonts.poppins(color: ColorClass.white.withOpacity(.6)),
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: Dimensions.widht10(context)),
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: Dimensions.widht10(context),
+                  vertical: Dimensions.height10(context)),
               border: InputBorder.none,
             ),
           ),
@@ -246,3 +286,4 @@ class MyCustomClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
+
