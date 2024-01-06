@@ -57,7 +57,9 @@ android {
 
     dependencies {
         implementation 'com.android.support:multidex:2.0.1' 
-         // Tambahkan baris ini
+        implementation 'com.airbnb.android:lottie:3.5.0'
+        implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+        // Tambahkan baris ini
     }
 }
 

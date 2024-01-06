@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bike_online_application/common/component/AlertDialog.dart';
 import 'package:bike_online_application/model/auth/profile.dart';
 import 'package:bike_online_application/repository/firebase/profile/profile.dart';
@@ -56,6 +58,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         emit(ProfileError(errorMessage: e.toString()));
       }
     });
+    
+    on<SubmitProfile>((event, emit) async {
+      try {
+        await _profile.changeProfilePicture(event.context, event.gambarProfile, event.email);
+      } catch (e) {
+        emit(ProfileError(errorMessage: e.toString()));
+      }
+    });
+    
   }
 }
 extension Contexto on BuildContext{

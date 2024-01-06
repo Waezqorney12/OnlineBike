@@ -53,3 +53,14 @@ final class LoadProfile extends ProfileEvent{
   List<Object?> get props => [email];
 }
 
+
+final class SubmitProfile extends ProfileEvent{
+  final String email;
+  final String gambarProfile;
+  final BuildContext context;
+  SubmitProfile({required this.gambarProfile, required this.email, required this.context});
+  
+  @override
+  List<Object?> get props => [email, gambarProfile, context];
+
+}

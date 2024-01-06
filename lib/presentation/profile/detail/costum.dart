@@ -1,7 +1,10 @@
 // ignore_for_file: unused_import
 
+import 'dart:io';
+
 import 'package:bike_online_application/bloc/profile/profile_bloc.dart';
 import 'package:bike_online_application/common/component/AppBar.dart';
+import 'package:bike_online_application/common/component/Button_Login_Register.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/component/Font/HiddenText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
@@ -13,8 +16,11 @@ import 'package:bike_online_application/repository/firebase/auth/Register/Regist
 import 'package:bike_online_application/repository/firebase/profile/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:logger/logger.dart';
 
 class CostumAccountPage extends StatefulWidget {
   const CostumAccountPage({super.key});
@@ -24,11 +30,16 @@ class CostumAccountPage extends StatefulWidget {
 }
 
 class _CostumAccountPageState extends State<CostumAccountPage> {
+  Logger logger = Logger();
   final _user = FirebaseAuth.instance.currentUser;
   final ProfileBloc profileBloc = ProfileBloc();
+
+  String imageUrl = '';
   @override
   void initState() {
-    context.read<ProfileBloc>().add(LoadProfile(email: _user?.email.toString() ?? ""));
+    context
+        .read<ProfileBloc>()
+        .add(LoadProfile(email: _user?.email.toString() ?? ""));
     super.initState();
   }
 
@@ -37,7 +48,7 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
     profileBloc.close();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,8 +74,39 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
                     clipBehavior: Clip.none,
                     children: [
                       Positioned(
-                          bottom: Dimensions.minHeight70(context),
-                          left: Dimensions.widht20(context),
+                        bottom: Dimensions.minHeight70(context),
+                        left: Dimensions.widht20(context),
+                        child: GestureDetector(
+                          onTap: () async {
+                            final file = await ImagePicker()
+                                .pickImage(source: ImageSource.gallery);
+                            file.validation();
+
+                            final fileName = DateTime.now()
+                                .microsecondsSinceEpoch
+                                .toString();
+
+                            Reference reference =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDireImages =
+                                reference.child('images');
+
+                            Reference referenceImageToUpload =
+                                referenceDireImages.child(fileName);
+                            try {
+                              if (file?.path.isNotEmpty ?? false) {
+                                await referenceImageToUpload
+                                    .putFile(File(file!.path));
+                                imageUrl = await referenceImageToUpload
+                                    .getDownloadURL();
+                                    
+                              } else {
+                                logger.d('File path is empty');
+                              }
+                            } catch (e) {
+                              logger.d(e.toString());
+                            }
+                          },
                           child: state.profile.gambarProfile.toString() ==
                                   "Udentified picture"
                               ? profilePicture(context,
@@ -76,7 +118,17 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
                                       fit: BoxFit.fill,
                                       image: NetworkImage(state
                                           .profile.gambarProfile
-                                          .toString())))),
+                                          .toString()))),
+                        ),
+                      ),
+                      Positioned(
+                          bottom: Dimensions.minHeight75(context),
+                          left: Dimensions.widht90(context),
+                          child: Icon(
+                            Icons.camera_enhance_rounded,
+                            size: Dimensions.font28(context),
+                            color: Colors.white,
+                          ))
                     ],
                   ),
                 ),
@@ -113,6 +165,17 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
                   child: menu(context,
                       icon: Icons.phone,
                       title: state.profile.nomorTelepon.toString()),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: Dimensions.height50(context),
+                      horizontal: Dimensions.widht15(context)),
+                  child: ButtonFormat(
+                      text: 'Save profile',
+                      buttonPressed: () {
+                        PersonalInformation().changeProfilePicture(
+                            context, imageUrl, state.profile.email.toString());
+                      }),
                 )
               ],
             );
@@ -124,7 +187,7 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
                     weight: FontWeight.bold));
           } else {
             return const Center(child: CircularProgressIndicator());
-          } 
+          }
         },
       ),
     );
@@ -194,5 +257,27 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
         color: isSwitching,
       ),
     );
+  }
+
+  Future<void> selectImage() async {
+    final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+    file.validation();
+
+    final fileName = DateTime.now().microsecondsSinceEpoch.toString();
+
+    Reference reference = FirebaseStorage.instance.ref();
+    Reference referenceDireImages = reference.child('images');
+
+    Reference referenceImageToUpload = referenceDireImages.child(fileName);
+    try {
+      if (file?.path.isNotEmpty ?? false) {
+        await referenceImageToUpload.putFile(File(file!.path));
+        imageUrl = await referenceImageToUpload.getDownloadURL();
+      } else {
+        logger.d('File path is empty');
+      }
+    } catch (e) {
+      logger.d(e.toString());
+    }
   }
 }
