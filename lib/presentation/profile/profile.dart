@@ -1,5 +1,5 @@
 import 'package:bike_online_application/bloc/profile/profile_bloc.dart';
-import 'package:bike_online_application/common/component/AppBar.dart';
+import 'package:bike_online_application/common/component/PathAppBar.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';
@@ -98,19 +98,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         text: "Costum Account"),
                     account(context,
                         image: ImageClass.history,
-                        path: '/Dashboard',
+                        path: '/History',
                         text: 'Order History'),
-                    account(context,
-                        image: ImageClass.promo,
-                        path: '/Dashboard',
-                        text: 'Promos'),
                     account(context,
                         image: ImageClass.card,
                         path: '/Dashboard',
                         text: 'Payment Method'),
                     account(context,
                         image: ImageClass.information,
-                        path: '/Dashboard',
+                        path: '/Help',
                         text: "Help"),
                     account(context,
                         image: ImageClass.globe,
@@ -180,9 +176,9 @@ class _ProfilePageState extends State<ProfilePage> {
       height: Dimensions.height100(context),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          color: ColorClass.background, // Setel warna shadow menjadi transparan
+          color: ColorClass.background, 
           spreadRadius: Dimensions.widht10(
-              context), // Atur spreadRadius sesuai dengan lebar border
+              context), 
         ),
       ], shape: BoxShape.circle, image: image),
     );

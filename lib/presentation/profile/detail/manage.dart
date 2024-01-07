@@ -1,6 +1,6 @@
 import 'package:bike_online_application/bloc/auth/login/auth_bloc.dart';
 import 'package:bike_online_application/bloc/profile/profile_bloc.dart';
-import 'package:bike_online_application/common/component/AppBar.dart';
+import 'package:bike_online_application/common/component/PathAppBar.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/component/Font/PoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';

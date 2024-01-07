@@ -14,24 +14,28 @@ class ImageClass{
   static const String globe = "assets/png/color/globe_fill.png";
   static const String information = "assets/png/color/info_fill.png";
   static const String promo = "assets/png/color/promo_fill.png";
-  static const String chat = "assets/png/color/chat_fill.png";
   static const String setting = "assets/png/color/setting_fill.png";
   static const String linked = "assets/png/color/atur_fill.png";
   static const String trash = "assets/png/color/trash_fill.png";
   static const String logout = "assets/png/color/exit_fill.png";
   static const String splash = "assets/png/color/splash.png";
+  
+  //Object
+  static const String helm = "assets/png/color/helm_object.png";
 
   //100%
   static const String bicycles = "assets/png/color/bicycle.png";
   static const String carts = "assets/png/color/cart.fill.png";
-  static const String documents = "assets/png/color/doc.text.fill.png";
+  static const String chats = "assets/png/color/chat_fill.png";
   static const String maps = "assets/png/color/map.fill.png";
   static const String persons = "assets/png/color/person_fill.png";
+  static const String promos = "assets/png/color/promo_fill_white.png";
 
   //60%
   static const String bicycles60 = "assets/png/non/bicycle60.png";
   static const String carts60 = "assets/png/non/cart.fill60.png";
-  static const String documents60 = "assets/png/non/doc.text.fill60.png";
+  static const String chats60 = "assets/png/non/chat_fill60.png";
   static const String maps60 = "assets/png/non/map.fill60.png";
+  static const String promos60 = "assets/png/non/promo_fill60.png";
 
 }

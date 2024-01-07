@@ -17,6 +17,7 @@ final class ProfileLoaded extends ProfileState{
   List<Object?> get props => [profile];
 }
 
+
 final class ProfileError extends ProfileState {
   final String errorMessage;
   ProfileError({required this.errorMessage});

@@ -28,7 +28,18 @@ class Dimensions {
     return MediaQuery.of(context).textScaleFactor;
   }
 
+  // Minus Widht
+  static double minWidht10(context) {
+    return screenWidht(context) / -39.27;
+  }
+
+
   // Minus Height
+  static double minHeight10(context) {
+    return screenHeight(context) / -82.69;
+  }
+
+
   static double minHeight25(BuildContext context) {
     return screenHeight(context) / -33.08;
   }
@@ -82,12 +93,20 @@ class Dimensions {
     return screenHeight(context) / 41.35;
   }
 
+  static double height25(context) {
+    return screenHeight(context) / 33.07;
+  }
+
   static double height28(context) {
     return screenHeight(context) / 29.53;
   }
 
   static double height30(context) {
     return screenHeight(context) / 27.56;
+  }
+
+  static double height35(context) {
+    return screenHeight(context) / 23.62;
   }
 
   static double height40(context) {
@@ -148,6 +167,10 @@ class Dimensions {
 
   static double height200(context) {
     return screenHeight(context) / 4.13;
+  }
+
+  static double height220(context) {
+    return screenHeight(context) / 3.76;
   }
 
   static double height250(context) {

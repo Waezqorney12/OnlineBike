@@ -3,7 +3,7 @@
 import 'dart:io';
 
 import 'package:bike_online_application/bloc/profile/profile_bloc.dart';
-import 'package:bike_online_application/common/component/AppBar.dart';
+import 'package:bike_online_application/common/component/PathAppBar.dart';
 import 'package:bike_online_application/common/component/Button_Login_Register.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/component/Font/HiddenText.dart';
@@ -34,9 +34,10 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
   final _user = FirebaseAuth.instance.currentUser;
   final ProfileBloc profileBloc = ProfileBloc();
 
-  String imageUrl = '';
+  String profileImages = '';
   @override
   void initState() {
+    profileImages;
     context
         .read<ProfileBloc>()
         .add(LoadProfile(email: _user?.email.toString() ?? ""));
@@ -60,6 +61,7 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
           if (state is ProfileInitial) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ProfileLoaded) {
+            profileImages = state.profile.gambarProfile.toString();
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -77,37 +79,12 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
                         bottom: Dimensions.minHeight70(context),
                         left: Dimensions.widht20(context),
                         child: GestureDetector(
-                          onTap: () async {
-                            final file = await ImagePicker()
-                                .pickImage(source: ImageSource.gallery);
-                            file.validation();
-
-                            final fileName = DateTime.now()
-                                .microsecondsSinceEpoch
-                                .toString();
-
-                            Reference reference =
-                                FirebaseStorage.instance.ref();
-                            Reference referenceDireImages =
-                                reference.child('images');
-
-                            Reference referenceImageToUpload =
-                                referenceDireImages.child(fileName);
-                            try {
-                              if (file?.path.isNotEmpty ?? false) {
-                                await referenceImageToUpload
-                                    .putFile(File(file!.path));
-                                imageUrl = await referenceImageToUpload
-                                    .getDownloadURL();
-                                    
-                              } else {
-                                logger.d('File path is empty');
-                              }
-                            } catch (e) {
-                              logger.d(e.toString());
-                            }
+                          onTap: () {
+                            context
+                                .read<ProfileBloc>()
+                                .add(SelectImage(email: state.profile.email.toString()));
                           },
-                          child: state.profile.gambarProfile.toString() ==
+                          child: profileImages ==
                                   "Udentified picture"
                               ? profilePicture(context,
                                   image: const DecorationImage(
@@ -166,17 +143,6 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
                       icon: Icons.phone,
                       title: state.profile.nomorTelepon.toString()),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: Dimensions.height50(context),
-                      horizontal: Dimensions.widht15(context)),
-                  child: ButtonFormat(
-                      text: 'Save profile',
-                      buttonPressed: () {
-                        PersonalInformation().changeProfilePicture(
-                            context, imageUrl, state.profile.email.toString());
-                      }),
-                )
               ],
             );
           } else if (state is ProfileError) {
@@ -257,27 +223,5 @@ class _CostumAccountPageState extends State<CostumAccountPage> {
         color: isSwitching,
       ),
     );
-  }
-
-  Future<void> selectImage() async {
-    final file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    file.validation();
-
-    final fileName = DateTime.now().microsecondsSinceEpoch.toString();
-
-    Reference reference = FirebaseStorage.instance.ref();
-    Reference referenceDireImages = reference.child('images');
-
-    Reference referenceImageToUpload = referenceDireImages.child(fileName);
-    try {
-      if (file?.path.isNotEmpty ?? false) {
-        await referenceImageToUpload.putFile(File(file!.path));
-        imageUrl = await referenceImageToUpload.getDownloadURL();
-      } else {
-        logger.d('File path is empty');
-      }
-    } catch (e) {
-      logger.d(e.toString());
-    }
   }
 }

@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:bike_online_application/common/component/AppBar.dart';
+import 'package:bike_online_application/common/component/PathAppBar.dart';
 import 'package:bike_online_application/common/component/Border_Form.dart';
 import 'package:bike_online_application/common/component/Font/BinaryPoppinText.dart';
 import 'package:bike_online_application/common/constants/colors.dart';

@@ -1,7 +1,7 @@
 import 'package:bike_online_application/common/constants/colors.dart';
 import 'package:bike_online_application/common/constants/dimensions.dart';
 import 'package:bike_online_application/common/constants/image.dart';
-import 'package:bike_online_application/presentation/Map/map.dart';
+import 'package:bike_online_application/presentation/promo/promo.dart';
 import 'package:bike_online_application/presentation/dashboard/dashboard.dart';
 import 'package:bike_online_application/presentation/transaction/history.dart';
 import 'package:bike_online_application/presentation/transaction/transaction.dart';
@@ -18,7 +18,7 @@ class _NavigationsState extends State<Navigations> {
   int currentindex = 0;
   final screen = const [
     Dashboard(),
-    MapPage(),
+    PromoPage(),
     TransactionPage(),
     HistoryPage()
   ];
@@ -49,16 +49,16 @@ class _NavigationsState extends State<Navigations> {
                   imageBox: ImageClass.bicycles,
                   label: "Bicycles"),
               barItem(
-                  image: ImageClass.maps60,
-                  imageBox: ImageClass.maps,
-                  label: "Maps"),
+                  image: ImageClass.promos60,
+                  imageBox: ImageClass.promos,
+                  label: "Promos"),
               barItem(
                   image: ImageClass.carts60,
                   imageBox: ImageClass.carts,
                   label: "Cart"),
               barItem(
-                  image: ImageClass.documents60,
-                  imageBox: ImageClass.documents,
+                  image: ImageClass.chats60,
+                  imageBox: ImageClass.chats,
                   label: "History"),
             ]),
       ),

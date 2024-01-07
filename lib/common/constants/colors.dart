@@ -20,6 +20,14 @@ class ColorClass {
   
   static Color navUp = const Color(0xFF363E51);
   static Color navDown = const Color(0xFF181C24);
+
+  static Gradient getBlackGradient() {
+    return LinearGradient(
+      colors: [navUp, navDown],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    );
+  }
   static Gradient getBlueGradient() {
     return LinearGradient(
       colors: [lightBlue, darkBlue],

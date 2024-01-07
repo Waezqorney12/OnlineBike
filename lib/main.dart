@@ -15,7 +15,10 @@ import 'package:bike_online_application/presentation/profile/detail/costum/addre
 import 'package:bike_online_application/presentation/profile/detail/costum/name.dart';
 import 'package:bike_online_application/presentation/profile/detail/costum/phone.dart';
 import 'package:bike_online_application/presentation/profile/detail/manage.dart';
+import 'package:bike_online_application/presentation/profile/help/help.dart';
+import 'package:bike_online_application/presentation/profile/history/history.dart';
 import 'package:bike_online_application/presentation/profile/profile.dart';
+import 'package:bike_online_application/presentation/promo/promo.dart';
 import 'package:bike_online_application/presentation/splash/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -56,7 +59,9 @@ class MyApp extends StatelessWidget {
           '/Costum':(context) => const CostumAccountPage(),
           '/Phone':(context) => const PhonePage(),
           '/Name' : (context) => const NamePage(),
-          '/Address' : (context) => const AddressPage()
+          '/Address' : (context) => const AddressPage(),
+          '/Help' :(context) => const HelpPage(),
+          '/History' : (context) => const HistoryPage()
         },
       ),
     );
